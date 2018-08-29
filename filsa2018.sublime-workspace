@@ -1,0 +1,1016 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Galler",
+				"GalleryNavNext"
+			],
+			[
+				"Gallery",
+				"GalleryNavPrev"
+			],
+			[
+				"cur",
+				"curImage"
+			],
+			[
+				"prev",
+				"prevVid"
+			],
+			[
+				"get",
+				"getCurVidTitle"
+			],
+			[
+				"Marzip",
+				"MarzipanoBrand"
+			],
+			[
+				"a",
+				"activeMenu"
+			],
+			[
+				"hots",
+				"hotspotType"
+			],
+			[
+				"acti",
+				"activeKey"
+			],
+			[
+				"firs",
+				"firstRun"
+			],
+			[
+				"toggle",
+				"toggleHelpWindow"
+			],
+			[
+				"act",
+				"activeKey"
+			],
+			[
+				"text",
+				"renderTextWindow"
+			],
+			[
+				"switc",
+				"switchScene"
+			],
+			[
+				"scene",
+				"sceneTextContent"
+			],
+			[
+				"find",
+				"findScene"
+			],
+			[
+				"Po",
+				"PointText"
+			],
+			[
+				"hotspot",
+				"hotspotCircle"
+			],
+			[
+				"hotspotD",
+				"hotspotData"
+			],
+			[
+				"Hostpo",
+				"HotspotType"
+			],
+			[
+				"device",
+				"deviceControl"
+			],
+			[
+				"deviceO",
+				"deviceOrientationControlMethod"
+			],
+			[
+				"fontaw",
+				"fontawesome-free-solid"
+			],
+			[
+				"Deci",
+				"DeviceOrientationControlMethod"
+			],
+			[
+				"Device",
+				"DeviceOrientationControlMethod"
+			],
+			[
+				"buil",
+				"buildImageTitle"
+			],
+			[
+				"is-accordion",
+				"is-accordion-submenu-parent"
+			],
+			[
+				"is",
+				"is-accordion-submenu-parent"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "filsa2018.php",
+			"settings":
+			{
+				"buffer_size": 2395,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n\n/**\n * The public-facing functionality of the plugin.\n *\n * @link       https://apie.cl\n * @since      1.0.0\n *\n * @package    Filsa2018\n * @subpackage Filsa2018/public\n */\n\n/**\n * The public-facing functionality of the plugin.\n *\n * Defines the plugin name, version, and two examples hooks for how to\n * enqueue the public-facing stylesheet and JavaScript.\n *\n * @package    Filsa2018\n * @subpackage Filsa2018/public\n * @author     Pablo Selín Carrasco Armijo - A Pie <pablo@apie.cl>\n */\nclass Filsa2018_Public {\n\n\t/**\n\t * The ID of this plugin.\n\t *\n\t * @since    1.0.0\n\t * @access   private\n\t * @var      string    $plugin_name    The ID of this plugin.\n\t */\n\tprivate $plugin_name;\n\n\t/**\n\t * The version of this plugin.\n\t *\n\t * @since    1.0.0\n\t * @access   private\n\t * @var      string    $version    The current version of this plugin.\n\t */\n\tprivate $version;\n\n\t/**\n\t * Initialize the class and set its properties.\n\t *\n\t * @since    1.0.0\n\t * @param      string    $plugin_name       The name of the plugin.\n\t * @param      string    $version    The version of this plugin.\n\t */\n\tpublic function __construct( $plugin_name, $version ) {\n\n\t\t$this->plugin_name = $plugin_name;\n\t\t$this->version = $version;\n\n\t}\n\n\tpublic function filsa2018_condition() {\n\t\t\n\t}\n\n\t/**\n\t * Register the stylesheets for the public-facing side of the site.\n\t *\n\t * @since    1.0.0\n\t */\n\tpublic function enqueue_styles() {\n\n\t\t/**\n\t\t * This function is provided for demonstration purposes only.\n\t\t *\n\t\t * An instance of this class should be passed to the run() function\n\t\t * defined in Filsa2018_Loader as all of the hooks are defined\n\t\t * in that particular class.\n\t\t *\n\t\t * The Filsa2018_Loader will then create the relationship\n\t\t * between the defined hooks and the functions defined in this\n\t\t * class.\n\t\t */\n\n\t\twp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/filsa2018-public.css', array(), $this->version, 'all' );\n\n\t}\n\n\t/**\n\t * Register the JavaScript for the public-facing side of the site.\n\t *\n\t * @since    1.0.0\n\t */\n\tpublic function enqueue_scripts() {\n\n\t\t/**\n\t\t * This function is provided for demonstration purposes only.\n\t\t *\n\t\t * An instance of this class should be passed to the run() function\n\t\t * defined in Filsa2018_Loader as all of the hooks are defined\n\t\t * in that particular class.\n\t\t *\n\t\t * The Filsa2018_Loader will then create the relationship\n\t\t * between the defined hooks and the functions defined in this\n\t\t * class.\n\t\t */\n\n\t\twp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/filsa2018-public.js', array( 'jquery' ), $this->version, false );\n\n\t}\n\n}\n",
+			"file": "public/class-filsa2018-public.php",
+			"file_size": 2563,
+			"file_write_time": 131800346800000000,
+			"settings":
+			{
+				"buffer_size": 2610,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "includes/class-filsa2018-loader.php",
+			"settings":
+			{
+				"buffer_size": 4865,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 380,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pret",
+				"JsPrettier: Format Code"
+			],
+			[
+				"wra",
+				"Word Wrap: Toggle"
+			],
+			[
+				"bab",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"prett",
+				"JsPrettier: Format Code"
+			],
+			[
+				"babe",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"comm",
+				"Toggle Comment"
+			],
+			[
+				"babl",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"toggle",
+				"Toggle Comment"
+			],
+			[
+				"ww",
+				"Word Wrap: Toggle"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"package ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pretti",
+				"Preferences: JsPrettier Settings - User"
+			],
+			[
+				"prefere",
+				"Preferences: Settings"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"prettie",
+				"Preferences: JsPrettier Settings - User"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
+			[
+				"prefe",
+				"Preferences: Settings"
+			],
+			[
+				"PRETT",
+				"JsPrettier: Format Code"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"babel",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"tood",
+				"Set Syntax: ToDone"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 573.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/admin",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/admin/css",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/admin/js",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/admin/partials",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/includes",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/public",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/public/css",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/public/js",
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa2018/public/partials"
+	],
+	"file_history":
+	[
+		"/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/filsa-2018/custom-content.php",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/MarzipanoBrand.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/TextWindow.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Point.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/HotspotVideo.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/config.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Gallery.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/data/dummy.json",
+		"/home/donhilo/Documentos/code/webassets/auraaustral.cl/static/index.html",
+		"/home/donhilo/Escritorio/Pedro's cacho.todo",
+		"/etc/hosts",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/scrollParagraph.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/base.css",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Video.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/ModalContainer.js",
+		"/home/donhilo/Documentos/code/containers/pueblonuevo/public/wp-content/themes/pueblonuevo-ajax/dploy.yaml",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/textos/ayuda.md",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Head.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/textos/intro_fulltext.md",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/textos/intro.md",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/textos/fiestas.md",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/MarzipanoView.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/MarzipanoUI.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/PointsList.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/ShowMenu.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Vista.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/.gitignore",
+		"/usr/share/applications/sublime_text.desktop",
+		"/home/donhilo/Escritorio/Postulaciones.todo",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/VideoHotspot.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/TestWindow.js",
+		"/home/donhilo/Escritorio/trjmama.txt",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/transitions/Fade.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/transitions/fade.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/package.json",
+		"/home/donhilo/.bashrc",
+		"/home/donhilo/Documentos/code/containers/c80/public/wp-content/themes/c80-template/dploy.yaml",
+		"/home/donhilo/Documentos/code/containers/ufutura/docker-compose.yml",
+		"/tmp/fz3temp-1/wp-config.php",
+		"/usr/share/applications/org.kde.dolphin.desktop",
+		"/home/donhilo/.gitignore",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Header.js",
+		"/home/donhilo/.config/sublime-text-3/Packages/User/JsPrettier.sublime-settings",
+		"/home/donhilo/.config/sublime-text-3/Packages/Babel/Babel.sublime-settings",
+		"/home/donhilo/Escritorio/testingtesting.txt",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/pages/vista.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Hotspot.js",
+		"/home/donhilo/.config/sublime-text-3/Packages/JsPrettier/JsPrettier.sublime-settings",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/Modal.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/components/CloseButton.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/ref/control_implementation.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/pages/index.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/pages/about.js",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/static/devicecontrol.js",
+		"/home/donhilo/Documentos/code/boxes/cw/public/wp-content/themes/cw/dploy.yaml",
+		"/home/donhilo/Documentos/code/js/trolley_nextjs/pages/page_vista.js",
+		"/home/donhilo/Escritorio/ps20.txt",
+		"/tmp/fz3temp-1/.htpasswd",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/library/entry-meta.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/single.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/global/_wp-overrides.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-config.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/modules/_navigation.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/archive-cms_agenda.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/template-parts/item-evento-archive.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/library/custom-field-utils.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/template-parts/agenda-metadata.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/header.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/functions.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/docker-compose.yml",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/phpdocker/php-fpm/php-ini-overrides.ini",
+		"/tmp/fz3temp-1/.htaccess",
+		"/home/donhilo/Documentos/code/containers/cm/cms/cms_web/public/wp-content/themes/cms-fp-old/assets/scss/modules/_navigation.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cms/cms_web/public/wp-content/themes/cms-fp-old/header.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/library/navigation.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/template-parts/widgets/widget-footer-info.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/extras/class-footer-info-widget.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/footer.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/modules/_content.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/tasks.todo",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/modules/_footer.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/modules/_sidebar.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/templates/_front.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/template-parts/mobile-top-bar.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/dploy.yaml",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/templates/_archive.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/page-templates/front.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/_settings.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/src/assets/scss/components/_metadata.scss",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/template-parts/item-default-archive.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/search.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_web/public/wp-content/themes/cma-fp-child/library/custom-content.php",
+		"/home/donhilo/Documentos/code/containers/cm/cma/cma_admision/public/wp-content/themes/cma-admision/css/src/main.scss"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 107.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "filsa2018.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1366,
+								1366
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/class-filsa2018-public.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1262,
+								1262
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "includes/class-filsa2018-loader.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 380,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								297,
+								297
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "filsa2018.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"custom-content.php"
+			],
+			[
+				"galle",
+				"components/Gallery.js"
+			],
+			[
+				"dsap",
+				"data/data_trolley_dspace.json"
+			],
+			[
+				"imaged",
+				"components/ImageData.js"
+			],
+			[
+				"galler",
+				"components/Gallery.js"
+			],
+			[
+				"data",
+				"data/data_trolley_dspace.json"
+			],
+			[
+				"image",
+				"components/ImageData.js"
+			],
+			[
+				"gall",
+				"components/Gallery.js"
+			],
+			[
+				"unti",
+				"untitled"
+			],
+			[
+				"clos",
+				"components/CloseButton.js"
+			],
+			[
+				"figur",
+				"components/Figure.js"
+			],
+			[
+				"gallery",
+				"components/Gallery.js"
+			],
+			[
+				"figure",
+				"components/Figure.js"
+			],
+			[
+				"modalcon",
+				"components/ModalContainer.js"
+			],
+			[
+				"hotspo",
+				"components/Hotspot.js"
+			],
+			[
+				"mo",
+				"components/Modal.js"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"todo",
+				"notas.todo"
+			],
+			[
+				"marzipanovi",
+				"components/MarzipanoView.js"
+			],
+			[
+				"point",
+				"components/PointsList.js"
+			],
+			[
+				"video",
+				"components/HotspotVideo.js"
+			],
+			[
+				"dumm",
+				"data/dummy.json"
+			],
+			[
+				"dum",
+				"data/dummy.json"
+			],
+			[
+				"vide",
+				"components/HotspotVideo.js"
+			],
+			[
+				"moda",
+				"components/Modal.js"
+			],
+			[
+				"brand",
+				"components/MarzipanoBrand.js"
+			],
+			[
+				"view",
+				"components/MarzipanoView.js"
+			],
+			[
+				"ui",
+				"components/MarzipanoUI.js"
+			],
+			[
+				"confi",
+				"config.js"
+			],
+			[
+				"vid",
+				"components/HotspotVideo.js"
+			],
+			[
+				"poin",
+				"components/Point.js"
+			],
+			[
+				"hot",
+				"components/Hotspot.js"
+			],
+			[
+				"gal",
+				"components/Gallery.js"
+			],
+			[
+				"modal",
+				"components/Modal.js"
+			],
+			[
+				"text",
+				"components/TextWindow.js"
+			],
+			[
+				"head",
+				"components/Head.js"
+			],
+			[
+				"points",
+				"components/PointsList.js"
+			],
+			[
+				"showme",
+				"components/ShowMenu.js"
+			],
+			[
+				"packag",
+				"package.json"
+			],
+			[
+				"marzipano",
+				"components/MarzipanoUI.js"
+			],
+			[
+				"hots",
+				"components/Hotspot.js"
+			],
+			[
+				"dummy",
+				"data/dummy.json"
+			],
+			[
+				"ho",
+				"components/Hotspot.js"
+			],
+			[
+				"base.c",
+				"static/base.css"
+			],
+			[
+				"marzipanobr",
+				"components/MarzipanoBrand.js"
+			],
+			[
+				"base",
+				"static/base.css"
+			],
+			[
+				"scroll",
+				"components/scrollParagraph.js"
+			],
+			[
+				"intro",
+				"static/textos/intro_fulltext.md"
+			],
+			[
+				"vista",
+				"components/Vista.js"
+			],
+			[
+				"showmn",
+				"components/ShowMenu.js"
+			],
+			[
+				"marzip",
+				"components/MarzipanoView.js"
+			],
+			[
+				"sho",
+				"components/ShowMenu.js"
+			],
+			[
+				"list",
+				"components/PointsList.js"
+			],
+			[
+				"marzipanoui",
+				"components/MarzipanoUI.js"
+			],
+			[
+				"menu",
+				"components/ShowMenu.js"
+			],
+			[
+				"closebu",
+				"components/CloseButton.js"
+			],
+			[
+				"Moda",
+				"components/Modal.js"
+			],
+			[
+				"marui",
+				"components/MarzipanoUI.js"
+			],
+			[
+				"agend",
+				"template-parts/agenda-metadata.php"
+			],
+			[
+				"fun",
+				"functions.php"
+			],
+			[
+				"func",
+				"functions.php"
+			],
+			[
+				"field",
+				"library/custom-field-utils.php"
+			],
+			[
+				"agenda",
+				"template-parts/agenda-metadata.php"
+			],
+			[
+				"item-eve",
+				"template-parts/item-evento-archive.php"
+			],
+			[
+				"archive",
+				"archive-cms_agenda.php"
+			],
+			[
+				"navi",
+				"src/assets/scss/modules/_navigation.scss"
+			],
+			[
+				"entry-me",
+				"library/entry-meta.php"
+			],
+			[
+				"singl",
+				"single.php"
+			],
+			[
+				"wp",
+				"src/assets/scss/global/_wp-overrides.scss"
+			],
+			[
+				"navig",
+				"src/assets/scss/modules/_navigation.scss"
+			],
+			[
+				"wp-ov",
+				"src/assets/scss/global/_wp-overrides.scss"
+			],
+			[
+				"conten",
+				"src/assets/scss/modules/_content.scss"
+			],
+			[
+				"dpl",
+				"dploy.yaml"
+			],
+			[
+				"content",
+				"src/assets/scss/modules/_content.scss"
+			],
+			[
+				"sidebar",
+				"src/assets/scss/modules/_sidebar.scss"
+			],
+			[
+				"foote",
+				"src/assets/scss/modules/_footer.scss"
+			],
+			[
+				"widget-foot",
+				"template-parts/widgets/widget-footer-info.php"
+			],
+			[
+				"footer-in",
+				"extras/class-footer-info-widget.php"
+			],
+			[
+				"footer.p",
+				"footer.php"
+			],
+			[
+				"foot",
+				"src/assets/scss/modules/_footer.scss"
+			],
+			[
+				"fron",
+				"src/assets/scss/templates/_front.scss"
+			],
+			[
+				"navigati",
+				"src/assets/scss/modules/_navigation.scss"
+			],
+			[
+				"navigat",
+				"src/assets/scss/modules/_navigation.scss"
+			],
+			[
+				"front",
+				"src/assets/scss/templates/_front.scss"
+			],
+			[
+				"metadat",
+				"src/assets/scss/components/_metadata.scss"
+			],
+			[
+				"item-def",
+				"template-parts/item-default-archive.php"
+			],
+			[
+				"sideba",
+				"src/assets/scss/modules/_sidebar.scss"
+			],
+			[
+				"setting",
+				"src/assets/scss/_settings.scss"
+			],
+			[
+				"footer",
+				"src/assets/scss/modules/_footer.scss"
+			],
+			[
+				"main",
+				"cma-admision/css/src/main.scss"
+			],
+			[
+				"hl_edda",
+				"parts/hl__edades-vacantes.php"
+			],
+			[
+				"vacantes",
+				"admin/admin_vacantes.php"
+			],
+			[
+				"vacant",
+				"admin/admin_vacantes.php"
+			],
+			[
+				"contac",
+				"page-templates/page-contacto.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"go",
+				"~/Documentos/code/php/ga/public/wp-content/themes/gonzalo-aguirre/gonzaloaguirre.sublime-project"
+			],
+			[
+				"pablosel.",
+				"~/Documentos/code/statics/pabloselin.github.io/pabloselin.sublime-project"
+			],
+			[
+				"",
+				"~/Documentos/code/php/ga/public/wp-content/themes/gonzalo-aguirre/gonzaloaguirre.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 301.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
