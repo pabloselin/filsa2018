@@ -175,6 +175,11 @@ class Filsa2018 {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		/* Retirar los estilos y scripts de cámara */
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_styles', 100);
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_scripts', 100);
 	}
 
 	/**

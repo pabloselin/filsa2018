@@ -162,6 +162,24 @@ class Filsa2018_Admin {
 
 }
 
+
+public function selectpage( $field) {
+	$selected_template = $field['file'];
+	$args = array(
+		'post_type' => 'filsa-2018',
+		'numberposts' => -1,
+		'meta_key' => '_wp_page_template',
+		'meta_value' => $selected_template
+		);
+
+	$items = get_posts($args);
+	$values = array();
+	foreach($items as $item) {
+		$values[$item->ID] = $item->post_title;
+	}
+	return $values;
+}
+
 public function options_metaboxes() {
 	/**
 	 * Registers options page menu item and form.
@@ -227,7 +245,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_menupositions',
+		'options_cb' => get_registered_nav_menus(),
     ) );
     
     $cmb_options->add_field( array(
@@ -236,7 +254,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_menupositions',
+		'options' => get_registered_nav_menus(),
     ) );
     
     $cmb_options->add_field( array(
@@ -245,7 +263,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_menupositions',
+		'options_cb' => get_registered_nav_menus(),
 	) );
 
 	$cmb_options->add_field( array(
@@ -254,7 +272,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Escoja una página donde se visualizará el programa', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_selectpage',
+		'options_cb' => 'selectpage',
 		'page_template' => array(
 			'file' => 'templates/template-filsa-2018-programa.php'
 		)
@@ -266,10 +284,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Escoja una página donde se visualizará el buscador de libros', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_selectpage',
-		'page_template' => array(
-			'file' => 'templates/template-filsa-2018-buscador.php'
-		)
+		'options' => $this->selectpage(array('file' => 'templates/template-filsa-2018-buscador.php'))
 	) );
 
 	$cmb_options->add_field( array(

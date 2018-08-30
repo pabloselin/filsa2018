@@ -113,6 +113,25 @@ class Filsa2018_Public {
 
 	}
 
+	public function dequeue_styles() {
+		$isfilsa = $this->condition();
+
+		if( $isfilsa == true ) {
+			wp_dequeue_style( 'camara' );
+			wp_dequeue_style( 'legacy' );
+			wp_dequeue_style( 'fontawesome' );
+			wp_dequeue_style( 'mailchimp' );
+		}
+	}
+
+	public function dequeue_scripts() {
+		$isfilsa = $this->condition();
+
+		if( $isfilsa == true ) {
+			wp_dequeue_script( 'camara' );
+		}
+	}
+
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
