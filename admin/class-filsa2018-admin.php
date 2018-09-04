@@ -100,6 +100,14 @@ class Filsa2018_Admin {
 
 	}
 
+	public function menu_positions() {
+		register_nav_menus( array(
+			'main_menu_filsa2018' => 'Navegación principal FILSA 2018',
+			'featured_news_filsa2018' => 'Noticias destacadas FILSA 2018',
+			'featured_events_filsa2018' => 'Eventos destacados FILSA 2018'
+		));
+	}
+
 	public function custom_content() {
 
 	$labels = array(
@@ -144,7 +152,7 @@ class Filsa2018_Admin {
 		'supports'              => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
 		'taxonomies'            => null,
 		'hierarchical'          => true,
-		'public'                => false,
+		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
@@ -180,6 +188,18 @@ public function selectpage( $field) {
 	return $values;
 }
 
+public function return_idmenuofpositions() {
+	$positions = get_nav_menu_locations();
+	$options = array();
+	if($positions) {
+		foreach($positions as $location => $position) {
+			$menu = wp_get_nav_menu_object( $position );
+			$options[$menu->term_id] = $menu->name;
+		}
+	}
+	return $options;
+}
+
 public function options_metaboxes() {
 	/**
 	 * Registers options page menu item and form.
@@ -188,7 +208,7 @@ public function options_metaboxes() {
 		'id'           => 'filsa2018_option_metabox',
 		'title'        => esc_html__( 'Parámetros FILSA 2018', 'filsa2018' ),
 		'object_types' => array( 'options-page' ),
-
+		'show_in_rest' => WP_REST_Server::READABLE,
 		/*
 		 * The following parameters are specific to the options-page box
 		 * Several of these parameters are passed along to add_menu_page()/add_submenu_page().
@@ -215,7 +235,7 @@ public function options_metaboxes() {
 		'name' => __( 'Cabecera escritorio', 'filsa_2018' ),
 		'id' => 'filsa2018_cabecera_escritorio',
 		'type' => 'file',
-		'desc' => __( 'Imagen de 1200x320 píxeles jpg o png', 'filsa_2018' ),
+		'desc' => __( 'Imagen de 1200x320 píxeles jpg o png', 'filsa_2018' )
 	) );
 
 	$cmb_options->add_field( array(
@@ -245,7 +265,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options_cb' => get_registered_nav_menus(),
+		'options_cb' => array($this, 'return_idmenuofpositions')
     ) );
     
     $cmb_options->add_field( array(
@@ -254,7 +274,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options' => get_registered_nav_menus(),
+		'options' => get_registered_nav_menus()
     ) );
     
     $cmb_options->add_field( array(
@@ -263,40 +283,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options_cb' => get_registered_nav_menus(),
-	) );
-
-	$cmb_options->add_field( array(
-		'name' => __( 'Página de Programa', 'filsa_2018' ),
-		'id' => 'filsa2018_programapage',
-        'type' => 'select',
-        'show_option_none' => true,
-		'desc' => __( 'Escoja una página donde se visualizará el programa', 'filsa_2018' ),
-		'options_cb' => 'selectpage',
-		'page_template' => array(
-			'file' => 'templates/template-filsa-2018-programa.php'
-		)
-	) );
-
-	$cmb_options->add_field( array(
-		'name' => __( 'Página de Búsqueda de libros', 'filsa_2018' ),
-		'id' => 'filsa2018_buscalibrospage',
-        'type' => 'select',
-        'show_option_none' => true,
-		'desc' => __( 'Escoja una página donde se visualizará el buscador de libros', 'filsa_2018' ),
-		'options' => $this->selectpage(array('file' => 'templates/template-filsa-2018-buscador.php'))
-	) );
-
-	$cmb_options->add_field( array(
-		'name' => __( 'Página de expositores', 'filsa_2018' ),
-		'id' => 'filsa2018_expositorespage',
-        'type' => 'select',
-        'show_option_none' => true,
-		'desc' => __( 'Escoja una página donde se visualizará el buscador de libros', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_selectpage',
-		'page_template' => array(
-			'file' => 'templates/template-filsa-2018-expositores.php'
-		)
+		'options' => get_registered_nav_menus()
 	) );
 
 	$cmb_options->add_field( array(
@@ -305,19 +292,7 @@ public function options_metaboxes() {
         'type' => 'taxonomy_select',
         'show_option_none' => true,
 		'desc' => __( 'Escoja un término de la taxonomía "Ferias"', 'filsa_2018' ),
-		'taxonomy' => 'ferias',
-	) );
-
-	$cmb_options->add_field( array(
-		'name' => __( 'Página de archivo para Noticias', 'filsa_2018' ),
-		'id' => 'filsa2018_archive',
-        'type' => 'select',
-        'show_option_none' => true,
-		'desc' => __( 'Escoja una página donde se almacenarán los archivos de noticias', 'filsa_2018' ),
-		'options_cb' => 'filsa2018_selectpage',
-		'page_template' => array(
-			'file' => 'templates/template-filsa-2018-noticias.php'
-		)
+		'taxonomy' => 'ferias'
 	) );
 
 	$cmb_options->add_field( array(

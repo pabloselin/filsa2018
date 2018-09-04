@@ -67,6 +67,7 @@ class Filsa2018 {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
+
 		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
 			$this->version = PLUGIN_NAME_VERSION;
 		} else {
@@ -77,8 +78,8 @@ class Filsa2018 {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
+		$this->define_public_hooks();	
+		
 	}
 
 	/**
@@ -159,6 +160,9 @@ class Filsa2018 {
 		// Custom content
 		$this->loader->add_action( 'init', $plugin_admin, 'custom_content' );
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'options_metaboxes');
+		/* Añadir Menus */
+		$this->loader->add_action( 'init', $plugin_admin, 'menu_positions');
+
 
 	}
 
@@ -170,16 +174,34 @@ class Filsa2018 {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
+		global $post;
 
 		$plugin_public = new Filsa2018_Public( $this->get_plugin_name(), $this->get_version() );
+		$isfilsa = new Filsa2018_Public();
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		if( $isfilsa == true ) {
 
-		/* Retirar los estilos y scripts de cámara */
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_styles', 100);
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_scripts', 100);
+			/* Retirar los estilos y scripts de cámara */
+
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_styles', 100 );
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_scripts', 100 );
+
+			/* Reemplazar los templates */
+
+			$this->loader->add_action( 'template_include', $plugin_public, 'replace_single_template' );
+
+			/* Añadir Manifest para la PWA */
+
+			//$this->loader->add_action( 'wp_head', $plugin_public, 'enqueue_manifest' );
+
+			/* Añadir Custom REST Endpoints */
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_cmb2_option');
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_menu');
+
+		}
 	}
 
 	/**

@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "."
+		},
+		{
+			"path": "/home/donhilo/Documentos/code/js/filsa2018-frontend"
 		}
 	]
 }

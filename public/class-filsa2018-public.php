@@ -57,11 +57,11 @@ class Filsa2018_Public {
 	public function get_cmb2_option( $key = '', $default = false ) {
 		if ( function_exists( 'cmb2_get_option' ) ) {
 		// Use cmb2_get_option as it passes through some key filters.
-			return cmb2_get_option( 'filsa2017_options', $key, $default );
+			return cmb2_get_option( 'filsa2018_options', $key, $default );
 		}
 
 	// Fallback to get_option if CMB2 is not loaded yet.
-		$opts = get_option( 'filsa2017_options', $default );
+		$opts = get_option( 'filsa2018_options', $default );
 
 		$val = $default;
 
@@ -73,6 +73,43 @@ class Filsa2018_Public {
 
 		return $val;
 	}
+
+	public function rest_cmb2_option( ) {
+		register_rest_route( 'filsa2018/v1/', '/options/(?P<option>\w+)', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'rest_get_cmb2_option'),
+			'args' => array(
+				'option' => array(
+					'validate_callback' => function( $param, $request, $key) {
+						return sanitize_text_field( $param );
+					}
+				)
+			)
+		) );
+	}
+
+	public function  rest_get_cmb2_option( WP_REST_Request $request ) {
+		return $this->get_cmb2_option( $request->get_param('option') );
+	}
+
+	public function rest_menu( ) {
+		register_rest_route( 'filsa2018/v1/', '/menus/(?P<menus>\w+)', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'rest_get_menus'),
+			'args' => array(
+				'menus' => array(
+					'validate_callback' => function( $param, $request, $key) {
+						return sanitize_text_field( $param );
+					}
+				)
+			)
+		));
+	}
+
+	public function rest_get_menus( WP_REST_Request $request ) {
+		return wp_get_nav_menu_items( $request->get_param('menus') );
+	}
+
 
 	public function condition() {
 		global $post;
@@ -88,6 +125,17 @@ class Filsa2018_Public {
 		):
 			return true;
 		endif;
+	}
+
+	public function replace_single_template( $single_template ) {
+		/* Reemplaza todos los singles relacionados con FILSA 2018 */
+		$isfilsa = $this->condition();
+
+		if( $isfilsa == true ) {
+			$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
+		}
+
+		return $single_template;
 	}
 
 	/**
@@ -132,6 +180,13 @@ class Filsa2018_Public {
 		}
 	}
 
+	public function replace_template() {
+		/**
+		Reemplaza las plantillas por defecto de WordPress para todo lo que sea FILSA 2018
+		*/
+		
+	}
+
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
@@ -152,7 +207,12 @@ class Filsa2018_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/filsa2018-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'filsa2018', array( 'scriptsurl' => plugin_dir_url(__FILE__) ) );
 
+	}
+
+	public function enqueue_manifest() {
+		echo '<link rel="manifest" href="' . plugin_dir_url( __FILE__ ) . 'manifest.json' . '">';
 	}
 
 }
