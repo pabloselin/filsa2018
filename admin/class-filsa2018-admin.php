@@ -166,8 +166,10 @@ class Filsa2018_Admin {
 		'capability_type'       => 'page',
 		'show_in_rest'          => true,
 	);
-	register_post_type( 'filsa-2018', $args );
-
+	
+	if(!post_type_exists( 'filsa-2018' )) {
+		register_post_type( 'filsa-2018', $args );
+	}
 }
 
 
