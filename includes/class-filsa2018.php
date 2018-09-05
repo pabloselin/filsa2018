@@ -177,7 +177,7 @@ class Filsa2018 {
 		global $post;
 
 		$plugin_public = new Filsa2018_Public( $this->get_plugin_name(), $this->get_version() );
-		$isfilsa = new Filsa2018_Public();
+		$isfilsa = new Filsa2018_Public( $this->get_plugin_name(), $this->get_version() );
 
 		if( $isfilsa == true ) {
 
@@ -200,6 +200,7 @@ class Filsa2018 {
 			/* Añadir Custom REST Endpoints */
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_cmb2_option');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_menu');
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018params');
 
 		}
 	}

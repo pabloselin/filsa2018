@@ -276,7 +276,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options' => get_registered_nav_menus()
+		'options_cb' => array($this, 'return_idmenuofpositions')
     ) );
     
     $cmb_options->add_field( array(
@@ -285,7 +285,7 @@ public function options_metaboxes() {
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
-		'options' => get_registered_nav_menus()
+		'options_cb' => array($this, 'return_idmenuofpositions')
 	) );
 
 	$cmb_options->add_field( array(

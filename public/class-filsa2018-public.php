@@ -110,6 +110,34 @@ class Filsa2018_Public {
 		return wp_get_nav_menu_items( $request->get_param('menus') );
 	}
 
+	public function rest_filsa2018params() {
+		register_rest_route( 'filsa2018/v1/', '/params/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018params')
+		));
+	}
+
+	public function filsa2018params( WP_REST_Request $request ) {
+		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_formurl', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas'];
+
+		$params_content = array();
+
+		foreach($params as $key=>$param) {
+			$fieldcontent = $this->get_cmb2_option($param);
+			if($fieldcontent) {
+				if($param == 'filsa2018_menu' || $param == 'filsa2018_menunoticias' || $param == 'filsa2018_menueventos') {
+					$params_content[$param] = wp_get_nav_menu_items( $fieldcontent );
+				} else {
+					$params_content[$param] = $fieldcontent;
+				}			
+			}
+		}
+
+
+
+		return $params_content;
+	}
+
 
 	public function condition() {
 		global $post;
