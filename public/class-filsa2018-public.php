@@ -180,11 +180,12 @@ class Filsa2018_Public {
 	public function redirect_noticia_filsa( ) {
 		global $post;
 		$slug = $post->post_name;
-		
+
 		if(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' )) {
 			//var_dump($post);
-			$url = get_bloginfo( 'url' ) . '/ferias/filsa/filsa-2018/' . $slug;
-		 	wp_redirect( $url );
+			$url = add_query_arg('slug', $slug, get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias');
+			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/?noticia=' . $slug;
+		 	wp_redirect( $cleanurl );
 		 	exit;
 		 }
 	}
