@@ -192,6 +192,7 @@ class Filsa2018 {
 			/* Reemplazar los templates */
 
 			$this->loader->add_action( 'template_include', $plugin_public, 'replace_single_template' );
+			$this->loader->add_action( 'template_redirect', $plugin_public, 'redirect_noticia_filsa' );
 
 			/* Añadir Manifest para la PWA */
 

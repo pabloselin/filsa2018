@@ -177,6 +177,18 @@ class Filsa2018_Public {
 		return $single_template;
 	}
 
+	public function redirect_noticia_filsa( ) {
+		global $post;
+		$slug = $post->post_name;
+		
+		if(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' )) {
+			//var_dump($post);
+			$url = get_bloginfo( 'url' ) . '/ferias/filsa/filsa-2018/' . $slug;
+		 	wp_redirect( $url );
+		 	exit;
+		 }
+	}
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
