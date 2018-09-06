@@ -118,6 +118,12 @@ class Filsa2018_Public {
 	}
 
 	public function filsa2018params( WP_REST_Request $request ) {
+		$cached_params = get_transient('filsa2018params');
+
+		if( false !== $cached_params) {
+			return $cached_params;
+		}
+
 		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_formurl', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas'];
 
 		$params_content = array();
@@ -133,9 +139,14 @@ class Filsa2018_Public {
 			}
 		}
 
+		$params_transient = set_transient('filsa2018params', $params_content, 3600);
+
+		if( false === $params_transient) {
+			return false;
+		}
 
 
-		return $params_content;
+		return get_transient('filsa2018params');
 	}
 
 
