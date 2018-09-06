@@ -139,6 +139,29 @@ class Filsa2018_Public {
 			}
 		}
 
+
+		//Almacenar lista de dias activos
+		if(isset($params_content['filsa2018_inicio']) && isset($params_content['filsa2018_fin'])) {
+			$iniciofilsa = new DateTime( $params_content['filsa2018_inicio']);
+			$finfilsa = new DateTime( $params_content['filsa2018_fin']);
+			$finfilsa = $finfilsa->modify('+1 day');
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+			foreach($period as $day) {
+				$ndia = date_i18n('j' , $day->format('U'));
+				$mes = date_i18n('F' , $day->format('U'));
+				if($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) {
+					$params_content['diaseventos'][] = $day->format('Y-m-d');
+				}
+				if($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) {
+					$params_content['diasvisitasguiadas'][] = $day->format('Y-m-d');
+				}
+				
+			}
+
+		}
+
 		$params_transient = set_transient('filsa2018params', $params_content, 3600);
 
 		if( false === $params_transient) {
@@ -148,6 +171,116 @@ class Filsa2018_Public {
 
 		return get_transient('filsa2018params');
 	}
+
+	/* Ajustar para esta versión */
+	public function filsa2018_transientterms($transient, $option, $taxonomy = 'cchl_tipoevento') {
+		if( false === ($vgterms = get_transient($transient)) ) {
+			$vg = $this->get_cmb2_option($option);
+			$vgtermids = array();
+			$visitasargs = array(
+				'post_type' => 'tribe_events',
+				'numberposts' => -1,
+				'post_status' => 'any',
+				'tax_query' => array(
+					array(
+						'taxonomy' => $taxonomy,
+						'terms' => $vg,
+						'field' => 'slug'
+					)
+				)
+			);
+			$vgitems = get_posts($visitasargs);
+			foreach($vgitems as $vgitem) {
+				$typeterms = get_the_terms( $vgitem, 'cchl_tipoevento' );	
+
+				foreach($typeterms as $typeterm) {
+					if($typeterm->slug != $vg)
+						$vgtermids[] = $typeterm->term_id;
+				}
+			}
+			$unique_ids = array_unique($vgtermids);
+			set_transient( $transient, $unique_ids, 12 * HOUR_IN_SECONDS );
+			return $unique_ids;
+		} else {
+			$vgids = get_transient( $transient );
+			return $vgids;
+		}
+	}
+
+	public function filsa2018_expositores() {
+		if( false === ($expterms = get_transient('filsa2018_expositores')) ) {
+			$args = array(
+				'post_type' => 'tribe_organizer',
+				'numberposts' => -1,
+				'orderby' => 'post_title',
+				'order' => 'ASC',
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'ferias',
+						'field' => 'slug',
+						'terms' => $this->get_cmb2_option('filsa2018_taxfilsa')
+					)
+				)
+			);
+			$expositores = get_posts($args);
+			$expositores_info = array();
+			foreach($expositores as $expitem) {
+				$expitem_info['title'] = $expitem->post_title;
+				$expitem_info['location'] = filsa2018_sortstandlocationjson($expitem->ID);
+				$expitem_info['web'] = get_post_meta($expitem->ID, '_OrganizerWebsite', true);
+				$expitem_info['distribuidor'] = get_post_meta($expitem->ID, '_filsa2018_distribuidor', true);
+				$expitem_info['sellos'] = get_post_meta($expitem->ID, '_filsa2018_sellos', true);
+				$expitem_info['materias'] = get_the_terms($expitem->ID, 'materia');
+
+				$expositores_info[] = $expitem_info;
+			}
+
+			set_transient( 'filsa2018_expositores', $expositores_info, 12 * HOUR_IN_SECONDS );
+			return $expositores_info;
+		} else {
+			$expositores_info = get_transient( 'filsa2018_expositores' );
+			return $expositores_info;
+		}
+	}
+
+	public function filsa2018_tipostransients() {
+		if( false === ($tiposeventos = get_transient('filsa2018_tiposeventos')) ) {
+
+			$args = array(
+				'post_type' => 'tribe_events',
+				'numberposts' => -1,
+				'post_status' => 'publish'
+			);
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'ferias',
+					'terms' => array($this->get_cmb2_option('filsa2018_taxfilsa')),
+					'field' => 'slug'
+				)
+			);
+			$eventos = get_posts($args);
+			$tipevarr = array();
+			foreach($eventos as $evento) {
+				$evterms = get_the_terms( $evento->ID, 'cchl_tipoevento' );
+				foreach($evterms as $evterm) {
+					if($evterm->slug != $this->get_cmb2_option('filsa2018_taxfilsavisitas')):
+						$tipevarr[] = $evterm->term_id;
+					endif;
+				}
+			}
+
+			$uniquetypes = array_unique($tipevarr);
+			set_transient( 'filsa2018_tiposeventos', $uniquetypes, 12 * HOUR_IN_SECONDS );
+
+			return $uniquetypes;
+
+		} else {
+			$tiposeventos = get_transient( 'filsa2018_tiposeventos' );
+			return $tiposeventos;
+		}
+	}
+
+	/* Fin de ajuste*/
 
 
 	public function condition() {
@@ -185,9 +318,9 @@ class Filsa2018_Public {
 			//var_dump($post);
 			$url = add_query_arg('slug', $slug, get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias');
 			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/?noticia=' . $slug;
-		 	wp_redirect( $cleanurl );
-		 	exit;
-		 }
+			wp_redirect( $cleanurl );
+			exit;
+		}
 	}
 
 	/**
