@@ -181,7 +181,7 @@ class Filsa2018_Public {
 		global $post;
 		$slug = $post->post_name;
 
-		if(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' ) && is_single()) {
+		if(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' ) && is_singular('post') ) {
 			//var_dump($post);
 			$url = add_query_arg('slug', $slug, get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias');
 			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/?noticia=' . $slug;
