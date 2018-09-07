@@ -317,10 +317,24 @@ class Filsa2018_Public {
 		if(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' ) && is_singular('post') ) {
 			//var_dump($post);
 			$url = add_query_arg('slug', $slug, get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias');
-			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/?noticia=' . $slug;
+			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias/' . $slug . '/';
 			wp_redirect( $cleanurl );
 			exit;
 		}
+	}
+
+	public function redirect_404_if_filsa( $single_template ) {
+		if(is_404()) {
+			$url = $_SERVER['REQUEST_URI'];
+			if(strpos($url, '/ferias/filsa/filsa-2018/') !== false) {
+				header("HTTP/1.0 200 OK");
+				$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
+			} else {
+				return $single_template;
+			}
+		}
+
+		return $single_template;
 	}
 
 	/**
