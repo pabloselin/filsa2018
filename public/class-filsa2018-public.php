@@ -315,7 +315,19 @@ class Filsa2018_Public {
 	}
 
 	public function yoast_tags() {
-		do_action('wpseo_head');
+		if(!is_404()) {
+			do_action('wpseo_head');
+		} else {
+			$contents = $this->replace_og_tags_in_404();
+			if($contents) {
+				$thumbnail_id = get_post_thumbnail_id( $contents->ID );
+				$image = wp_get_attachment_image_src( $thumbnail_id, 'imagen_single');
+				?>
+				<meta property="og:title" content="<?php echo $contents->post_title;?>" />
+				<meta property="og:description" content="<?php echo $contents->post_excerpt;?>" />
+				<meta property="og:image" content="<?php echo $image[0];?>" />
+			<?php }
+		}
 	}
 
 	public function replace_single_template( $single_template ) {
@@ -343,18 +355,44 @@ class Filsa2018_Public {
 	}
 
 	public function redirect_404_if_filsa( $single_template ) {
-		if(is_404()) {
-			$url = $_SERVER['REQUEST_URI'];
-			if(strpos($url, '/ferias/filsa/filsa-2018/') !== false) {
+		if($this->detect_404_in_filsa()) {
 				header("HTTP/1.0 200 OK");
 				$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
 			} else {
 				return $single_template;
 			}
+			return $single_template;
 		}
+		
 
-		return $single_template;
+	public function detect_404_in_filsa() {
+		if(is_404()) {
+			$url = $_SERVER['REQUEST_URI'];
+			if(strpos($url, '/ferias/filsa/filsa-2018/') !== false) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
+
+	public function replace_og_tags_in_404() {
+		if($this->detect_404_in_filsa()) {
+			$url = $_SERVER['REQUEST_URI']; 
+			$slug = explode('/', $url);
+			$refinedslug = $slug[count($slug) -2];
+			$args = array(
+				'name' => $refinedslug,
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'numberposts' => 1
+			);
+			$post = get_posts($args);
+			if($post) {
+				return $post[0];
+			}
+	}
+}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.

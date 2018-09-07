@@ -196,8 +196,11 @@ class Filsa2018 {
 
 			/*SEO*/
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'ogimage_filsa');
+			
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'yoast_tags');
+			
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'pagetitle');
+			//$this->loader->add_action( 'filsa2018_head', $plugin_public, 'replace_og_tags_in_404');
 
 			
 			/* Reemplazar los templates */
