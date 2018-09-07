@@ -299,6 +299,25 @@ class Filsa2018_Public {
 		endif;
 	}
 
+	public function ogimage_filsa() {
+		if(is_post_type_archive( 'filsa-2018' )) {
+			$image = $this->get_cmb2_option('filsa2018_placeholder');?>
+				<meta property="og:image" content="<?php echo $image;?>"/>
+			<?php
+		}
+	}
+
+	public function pagetitle() {
+		$title = $this->get_cmb2_option('filsa2018_title');
+		?>
+			<title><?php echo $title;?></title>
+		<?php
+	}
+
+	public function yoast_tags() {
+		do_action('wpseo_head');
+	}
+
 	public function replace_single_template( $single_template ) {
 		/* Reemplaza todos los singles relacionados con FILSA 2018 */
 		$isfilsa = $this->condition();

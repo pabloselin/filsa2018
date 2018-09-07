@@ -78,7 +78,8 @@ class Filsa2018 {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();	
+		$this->define_public_hooks();
+		$this->filsa2018_head();
 		
 	}
 
@@ -166,6 +167,10 @@ class Filsa2018 {
 
 	}
 
+	private function filsa2018_head() {
+		do_action('filsa2018_head');
+	}
+
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
@@ -189,6 +194,12 @@ class Filsa2018 {
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_styles', 100 );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'dequeue_scripts', 100 );
 
+			/*SEO*/
+			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'ogimage_filsa');
+			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'yoast_tags');
+			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'pagetitle');
+
+			
 			/* Reemplazar los templates */
 
 			$this->loader->add_action( 'template_include', $plugin_public, 'replace_single_template' );
