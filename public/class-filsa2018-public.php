@@ -131,13 +131,21 @@ class Filsa2018_Public {
 		foreach($params as $key=>$param) {
 			$fieldcontent = $this->get_cmb2_option($param);
 			if($fieldcontent) {
-				if($param == 'filsa2018_menu' || $param == 'filsa2018_menunoticias' || $param == 'filsa2018_menueventos') {
-					$params_content[$param] = wp_get_nav_menu_items( $fieldcontent );
+				if($param == 'filsa2018_menunoticias' || $param == 'filsa2018_menueventos') {
+					$params_content[$param] =wp_get_nav_menu_items( $fieldcontent );
+				} elseif($param == 'filsa2018_menu') {
+					$params_content[$param] = $this->buildTree(wp_get_nav_menu_items( $fieldcontent ), 0);
+				} elseif($param == 'filsa2018_intro') {
+					$params_content[$param]= apply_filters( 'the_content', $fieldcontent );
 				} else {
 					$params_content[$param] = $fieldcontent;
 				}			
 			}
 		}
+
+		//Almacenar contenidos FILSA-2018
+		$params_content['filsa2018_contents'] = $this->get_filsa2018_contents();
+		$params_content['filsa2018_noticias'] = $this->get_filsa2018_news();
 
 
 		//Almacenar lista de dias activos
@@ -152,15 +160,18 @@ class Filsa2018_Public {
 				$ndia = date_i18n('j' , $day->format('U'));
 				$mes = date_i18n('F' , $day->format('U'));
 				if($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) {
-					$params_content['diaseventos'][] = $day->format('Y-m-d');
+					$params_content['diaseventos'][] = $this->formatDay($day);
 				}
 				if($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) {
-					$params_content['diasvisitasguiadas'][] = $day->format('Y-m-d');
+					$params_content['diasvisitasguiadas'][] = $this->formatDay($day);
 				}
 				
 			}
 
 		}
+
+		//Almacenar eventos
+		$params_content['eventos'] = $this->get_events();
 
 		$params_transient = set_transient('filsa2018params', $params_content, 3600);
 
@@ -170,6 +181,146 @@ class Filsa2018_Public {
 
 
 		return get_transient('filsa2018params');
+	}
+
+	public function formatDay( $day ) {
+		$dia = strtotime($day->format('Y-m-d'));
+		setlocale(LC_ALL, 'es_ES');
+		$formatted = array(
+			'dia' => strftime('%e', $dia),
+			'mes' => strftime('%B', $dia),
+			'diasemana' => strftime('%A', $dia),
+			'full' => $day->format('Y-m-d')
+		);
+
+		return $formatted;
+	}
+
+	public function buildTree( array &$elements, $parentId = 0 )
+	{
+    $branch = array();
+    foreach ( $elements as &$element )
+    {
+        if ( $element->menu_item_parent == $parentId )
+        {
+            $children = $this->buildTree( $elements, $element->ID );
+            if ( $children )
+                $element->wpse_children = $children;
+
+            $branch[$element->menu_order] = $element;
+            unset( $element );
+        }
+    }
+    return $branch;
+	}
+
+	public function get_events() {
+		$args = array(
+			'post_type' => 'tribe_events',
+			'numberposts' => -1,
+			'post_status' => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'ferias',
+					'terms' => 'filsa-2018',
+					'field' => 'slug'
+				),
+			)
+		);
+
+		$events = get_posts($args);
+		$events_prepared = [];
+		
+		foreach($events as $event) {
+			$events_prepared[] = $this->prepare_eventinfo($event);
+		}
+
+		return $events_prepared;
+	}
+
+	public function get_filsa2018_contents() {
+		$args = array(
+			'post_type' => 'filsa-2018',
+			'numberposts' => -1,
+			'post_status' => 'publish'
+		);
+
+		$posts = get_posts($args);
+		$posts_prepared = [];
+		foreach($posts as $post) {
+			$posts_prepared[] = $this->preparefilsa2018_content($post);
+		}
+
+		return $posts_prepared;
+	}
+
+	public function get_filsa2018_news() {
+		$args = array(
+			'post_type' => 'post',
+			'numberposts' => -1,
+			'post_status' => 'publish',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'ferias',
+					'field' => 'slug',
+					'terms' => 'filsa-2018'
+				)
+			)
+		);
+
+		$posts = get_posts($args);
+		$posts_prepared = [];
+		foreach($posts as $post) {
+			$posts_prepared[] = $this->preparefilsa2018_content($post);
+		}
+
+		return $posts_prepared;
+	}
+
+
+	public function preparefilsa2018_content( $post ) {
+		$post_prepared = array(
+			'id' => $post->ID,
+			'date' => $post->post_date,
+			'content' => apply_filters( 'the_content', $post->post_content ),
+			'title' => $post->post_title,
+			'excerpt' => $post->post_excerpt,
+			'slug' => $post->post_name,
+			'parent' => $post->post_parent,
+			'media' => $this->getallimageurls( $post->ID )
+		);
+
+		return $post_prepared;
+	}
+
+	public function getallimageurls( $postid ) {
+		$sizes = get_intermediate_image_sizes();
+		$images = array();
+		foreach($sizes as $size) {
+			$thid = get_post_thumbnail_id( $postid );
+			$imgurl = wp_get_attachment_image_src( $thid, $size );
+			$images[$size] = $imgurl[0];
+		}
+
+		return $images;
+	}
+
+	public function prepare_eventinfo($event) {
+
+		$event_prepared = array(
+			'daykey'		=> strtotime(tribe_get_start_date( $event->ID, false, 'j F Y')),
+			'startday' 		=> tribe_get_start_date( $event->ID, false, 'l j F'),
+			'startdate' 	=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
+			'enddate' 		=> tribe_get_end_date($event->ID, false, 'G:i'),
+			'tipo_eventos' 	=> get_the_terms($event->ID, 'cchl_tipoevento'),
+			'tema_eventos'	=> get_the_terms($event->ID, 'cchl_temaevento'),
+			'organizadores' => cchl_organizer_names( $event->ID ),
+			'evento_caduco'	=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
+			'content'		=> apply_filters( 'the_content', $event->post_content),
+			'title'			=> $event->post_title
+		);
+
+		return $event_prepared;
 	}
 
 	/* Ajustar para esta versión */
