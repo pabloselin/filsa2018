@@ -161,6 +161,7 @@ class Filsa2018 {
 		// Custom content
 		$this->loader->add_action( 'init', $plugin_admin, 'custom_content' );
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'options_metaboxes');
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'content_metaboxes');
 		/* Añadir Menus */
 		$this->loader->add_action( 'init', $plugin_admin, 'menu_positions');
 
@@ -217,6 +218,7 @@ class Filsa2018 {
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_cmb2_option');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_menu');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018params');
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018events');
 
 		}
 	}

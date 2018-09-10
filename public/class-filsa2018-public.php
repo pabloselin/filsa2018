@@ -117,6 +117,13 @@ class Filsa2018_Public {
 		));
 	}
 
+	public function rest_filsa2018events() {
+		register_rest_route( 'filsa2018/v1/', '/events/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018_events_transients')
+		));
+	}
+
 	public function filsa2018params( WP_REST_Request $request ) {
 		$cached_params = get_transient('filsa2018params');
 
@@ -170,17 +177,31 @@ class Filsa2018_Public {
 
 		}
 
-		//Almacenar eventos
-		$params_content['eventos'] = $this->get_events();
-
 		$params_transient = set_transient('filsa2018params', $params_content, 3600);
 
-		if( false === $params_transient) {
+		if( false == $params_transient) {
 			return false;
 		}
 
 
 		return get_transient('filsa2018params');
+	}
+
+	public function filsa2018_events_transients( WP_REST_Request $request ) {
+		$cached_events = get_transient('filsa2018eventos');
+
+		if( false !== $cached_events) {
+			return $cached_events;
+		}
+
+		//Almacenar eventos
+		$params_content['eventos'] = $this->get_events();
+
+		$events_transient = set_transient('filsa2018eventos', $events_content, 3600);
+
+		if( false == $events_transient) {
+			return false;
+		}
 	}
 
 	public function formatDay( $day ) {
@@ -196,11 +217,10 @@ class Filsa2018_Public {
 		return $formatted;
 	}
 
-	public function buildTree( array &$elements, $parentId = 0 )
-	{
+	public function buildTree( array &$elements, $parentId = 0 ) {
     $branch = array();
-    foreach ( $elements as &$element )
-    {
+    
+    foreach ( $elements as &$element ) {
         if ( $element->menu_item_parent == $parentId )
         {
             $children = $this->buildTree( $elements, $element->ID );
@@ -289,6 +309,9 @@ class Filsa2018_Public {
 			'parent' => $post->post_parent,
 			'media' => $this->getallimageurls( $post->ID )
 		);
+		if( $post->post_type == 'filsa-2018' ) {
+			$post_prepared['component'] = get_post_meta($post->ID, 'filsa2018_componente', true);
+		}
 
 		return $post_prepared;
 	}
@@ -308,12 +331,13 @@ class Filsa2018_Public {
 	public function prepare_eventinfo($event) {
 
 		$event_prepared = array(
-			'daykey'		=> strtotime(tribe_get_start_date( $event->ID, false, 'j F Y')),
+			'daykey'		=> tribe_get_start_date( $event->ID, false, 'j-M-Y'),
 			'startday' 		=> tribe_get_start_date( $event->ID, false, 'l j F'),
 			'startdate' 	=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
 			'enddate' 		=> tribe_get_end_date($event->ID, false, 'G:i'),
-			'tipo_eventos' 	=> get_the_terms($event->ID, 'cchl_tipoevento'),
-			'tema_eventos'	=> get_the_terms($event->ID, 'cchl_temaevento'),
+			'tipo_eventos' 	=> $this->termnames(get_the_terms($event->ID, 'cchl_tipoevento')),
+			'tema_eventos'	=> $this->termnames(get_the_terms($event->ID, 'cchl_temaevento')),
+			'cursos'		=> $this->termnames(get_the_terms($event->ID, 'cursos')),
 			'organizadores' => cchl_organizer_names( $event->ID ),
 			'evento_caduco'	=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
 			'content'		=> apply_filters( 'the_content', $event->post_content),
@@ -321,6 +345,14 @@ class Filsa2018_Public {
 		);
 
 		return $event_prepared;
+	}
+
+	public function termnames( $terms ) {
+		$names = [];
+		foreach($terms as $term) {
+			$names[] = $term->name;
+		}
+		return $names;
 	}
 
 	/* Ajustar para esta versión */

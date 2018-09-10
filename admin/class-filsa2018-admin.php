@@ -202,6 +202,30 @@ public function return_idmenuofpositions() {
 	return $options;
 }
 
+public function content_metaboxes() {
+	$prefix = 'filsa2018';
+
+	$cmb = new_cmb2_box( array(
+		'id'           => $prefix . 'filsa2018_template',
+		'title'        => __( 'Seleccionar componente', 'filsa2018' ),
+		'object_types' => array( 'filsa-2018' ),
+		'context'      => 'normal',
+		'priority'     => 'high',
+	) );
+
+	$cmb->add_field( array(
+		'id' => $prefix . '_componente',
+		'type' => 'select',
+		'options' => array(
+			'normal' => __('Normal', 'filsa2018'),
+			'programa' => __( 'Programa', 'filsa2018' ),
+			'buscalibros' => __( 'Buscador de libros', 'filsa2018' ),
+			'invitados' => __( 'Invitados', 'filsa2018' ),
+			'visitas-guiadas' => __( 'Visitas guiadas', 'filsa2018' ),	
+		),
+	) );
+}
+
 public function options_metaboxes() {
 	/**
 	 * Registers options page menu item and form.
