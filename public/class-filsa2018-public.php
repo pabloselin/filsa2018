@@ -155,28 +155,6 @@ class Filsa2018_Public {
 		$params_content['filsa2018_noticias'] = $this->get_filsa2018_news();
 
 
-		//Almacenar lista de dias activos
-		if(isset($params_content['filsa2018_inicio']) && isset($params_content['filsa2018_fin'])) {
-			$iniciofilsa = new DateTime( $params_content['filsa2018_inicio']);
-			$finfilsa = new DateTime( $params_content['filsa2018_fin']);
-			$finfilsa = $finfilsa->modify('+1 day');
-			$interval = DateInterval::createFromDateString('1 day');
-			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
-
-			foreach($period as $day) {
-				$ndia = date_i18n('j' , $day->format('U'));
-				$mes = date_i18n('F' , $day->format('U'));
-				if($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) {
-					$params_content['diaseventos'][] = $this->formatDay($day);
-				}
-				if($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) {
-					$params_content['diasvisitasguiadas'][] = $this->formatDay($day);
-				}
-				
-			}
-
-		}
-
 		$params_transient = set_transient('filsa2018params', $params_content, 3600);
 
 		if( false == $params_transient) {
@@ -194,8 +172,37 @@ class Filsa2018_Public {
 			return $cached_events;
 		}
 
+		$events_content = [];
+
+		//Almacenar lista de dias activos
+
+		$inicio = $this->get_cmb2_option('filsa2018_inicio');
+		$fin = $this->get_cmb2_option('filsa2018_fin');
+
+
+		if(isset($inicio) && isset($fin)) {
+			$iniciofilsa = new DateTime( $inicio );
+			$finfilsa = new DateTime( $fin );
+			$finfilsa = $finfilsa->modify('+1 day');
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+			foreach($period as $day) {
+				$ndia = date_i18n('j' , $day->format('U'));
+				$mes = date_i18n('F' , $day->format('U'));
+				if($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) {
+					$events_content['diaseventos'][] = $this->formatDay($day);
+				}
+				if($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) {
+					$events_content['diasvisitasguiadas'][] = $this->formatDay($day);
+				}
+				
+			}
+
+		}
+
 		//Almacenar eventos
-		$params_content['eventos'] = $this->get_events();
+		$events_content['eventos'] = $this->get_events();
 
 		$events_transient = set_transient('filsa2018eventos', $events_content, 3600);
 
@@ -234,11 +241,15 @@ class Filsa2018_Public {
     return $branch;
 	}
 
-	public function get_events() {
+	public function get_events(  ) {
 		$args = array(
 			'post_type' => 'tribe_events',
 			'numberposts' => -1,
 			'post_status' => 'publish',
+			'orderby' => 'meta_value',
+			'meta_key' => '_EventStartDate',
+			'meta_type' => 'DATETIME',
+			'order' => 'ASC',
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'ferias',
@@ -331,7 +342,8 @@ class Filsa2018_Public {
 	public function prepare_eventinfo($event) {
 
 		$event_prepared = array(
-			'daykey'		=> tribe_get_start_date( $event->ID, false, 'j-M-Y'),
+			'id'			=> $event->ID,
+			'daykey'		=> tribe_get_start_date( $event->ID, false, 'Y-m-d'),
 			'startday' 		=> tribe_get_start_date( $event->ID, false, 'l j F'),
 			'startdate' 	=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
 			'enddate' 		=> tribe_get_end_date($event->ID, false, 'G:i'),
