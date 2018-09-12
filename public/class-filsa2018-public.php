@@ -190,16 +190,15 @@ class Filsa2018_Public {
 			foreach($period as $day) {
 				$ndia = date_i18n('j' , $day->format('U'));
 				$mes = date_i18n('F' , $day->format('U'));
-				if($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) {
-					$events_content['diaseventos'][] = $this->formatDay($day);
-				}
-				if($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) {
-					$events_content['diasvisitasguiadas'][] = $this->formatDay($day);
+				$eventos = ($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled'; 
+				$visitas = ($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled';
+				
+				$events_content['diaseventos'][$mes][] = [$this->formatDay($day), $eventos];
+				$events_content['diasvisitasguiadas'][$mes][] = [$this->formatDay($day), $visitas];
+				
 				}
 				
 			}
-
-		}
 
 		//Almacenar eventos
 		$events_content['eventos'] = $this->get_events();
@@ -343,6 +342,7 @@ class Filsa2018_Public {
 
 		$event_prepared = array(
 			'id'			=> $event->ID,
+			'slug'			=> $event->post_name,
 			'daykey'		=> tribe_get_start_date( $event->ID, false, 'Y-m-d'),
 			'startday' 		=> tribe_get_start_date( $event->ID, false, 'l j F'),
 			'startdate' 	=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
@@ -361,9 +361,11 @@ class Filsa2018_Public {
 
 	public function termnames( $terms ) {
 		$names = [];
-		foreach($terms as $term) {
-			$names[] = $term->name;
-		}
+		if($terms) {
+			foreach($terms as $term) {
+				$names[] = $term->name;
+			}
+		};
 		return $names;
 	}
 
@@ -525,6 +527,12 @@ class Filsa2018_Public {
 		}
 	}
 
+	public function loggedin_var() {
+		?>
+				<script>window.loggedin = <?php echo (is_user_logged_in()) ? 'true' : 'false' ;?>;</script>
+			<?php
+		}
+
 	public function replace_single_template( $single_template ) {
 		/* Reemplaza todos los singles relacionados con FILSA 2018 */
 		$isfilsa = $this->condition();
@@ -546,6 +554,10 @@ class Filsa2018_Public {
 			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/noticias/' . $slug . '/';
 			wp_redirect( $cleanurl );
 			exit;
+		} elseif(is_object_in_term( $post->ID, 'ferias', 'filsa-2018' ) && is_singular('tribe_events')) {
+			$url = add_query_arg('slug', $slug, get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/eventos');
+			$cleanurl = get_bloginfo( 'url' ) .'/ferias/filsa/filsa-2018/eventos/' . $slug . '/';
+			wp_redirect( $cleanurl );
 		}
 	}
 

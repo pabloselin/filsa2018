@@ -438,8 +438,8 @@ public function options_metaboxes() {
 
 	
 	$cmb2loader = new Filsa2018_Public();
-	$iniciooption = $cmb2loader::get_cmb2_option('filsa2018_inicio');
-	$finoption = $cmb2loader::get_cmb2_option('filsa2018_fin');
+	$iniciooption = $cmb2loader->get_cmb2_option('filsa2018_inicio');
+	$finoption = $cmb2loader->get_cmb2_option('filsa2018_fin');
 	
 	if($iniciooption && $finoption) {
 

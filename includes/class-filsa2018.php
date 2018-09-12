@@ -202,7 +202,7 @@ class Filsa2018 {
 			
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'pagetitle');
 			//$this->loader->add_action( 'filsa2018_head', $plugin_public, 'replace_og_tags_in_404');
-
+			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'loggedin_var');
 			
 			/* Reemplazar los templates */
 
