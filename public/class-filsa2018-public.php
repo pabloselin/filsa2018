@@ -217,6 +217,8 @@ class Filsa2018_Public {
 		if( false == $events_transient) {
 			return false;
 		}
+
+		return get_transient('filsa2018eventos');
 	}
 
 	public function formatDay( $day ) {
