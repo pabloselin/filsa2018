@@ -221,7 +221,8 @@ public function content_metaboxes() {
 			'programa' => __( 'Programa', 'filsa2018' ),
 			'buscalibros' => __( 'Buscador de libros', 'filsa2018' ),
 			'invitados' => __( 'Invitados', 'filsa2018' ),
-			'visitas-guiadas' => __( 'Visitas guiadas', 'filsa2018' ),	
+			'visitas-guiadas' => __( 'Visitas guiadas', 'filsa2018' ),
+			'archivonoticias' => __( 'Archivo de Noticias', 'filsa2018' )
 		),
 	) );
 }
