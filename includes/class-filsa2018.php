@@ -162,6 +162,7 @@ class Filsa2018 {
 		$this->loader->add_action( 'init', $plugin_admin, 'custom_content' );
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'options_metaboxes');
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'content_metaboxes');
+
 		/* Añadir Menus */
 		$this->loader->add_action( 'init', $plugin_admin, 'menu_positions');
 
@@ -203,6 +204,8 @@ class Filsa2018 {
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'pagetitle');
 			//$this->loader->add_action( 'filsa2018_head', $plugin_public, 'replace_og_tags_in_404');
 			$this->loader->add_action( 'filsa2018_head', $plugin_public, 'loggedin_var');
+			//Shortcodes
+			 $this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 			
 			/* Reemplazar los templates */
 

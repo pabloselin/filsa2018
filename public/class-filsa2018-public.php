@@ -196,9 +196,9 @@ class Filsa2018_Public {
 				$events_content['diaseventos'][$mes][] = [$this->formatDay($day), $eventos];
 				$events_content['diasvisitasguiadas'][$mes][] = [$this->formatDay($day), $visitas];
 				
-				}
-				
 			}
+
+		}
 
 		//Almacenar eventos
 		$events_content['eventos'] = $this->get_events();
@@ -224,20 +224,20 @@ class Filsa2018_Public {
 	}
 
 	public function buildTree( array &$elements, $parentId = 0 ) {
-    $branch = array();
-    
-    foreach ( $elements as &$element ) {
-        if ( $element->menu_item_parent == $parentId )
-        {
-            $children = $this->buildTree( $elements, $element->ID );
-            if ( $children )
-                $element->wpse_children = $children;
+		$branch = array();
 
-            $branch[$element->menu_order] = $element;
-            unset( $element );
-        }
-    }
-    return $branch;
+		foreach ( $elements as &$element ) {
+			if ( $element->menu_item_parent == $parentId )
+			{
+				$children = $this->buildTree( $elements, $element->ID );
+				if ( $children )
+					$element->wpse_children = $children;
+
+				$branch[$element->menu_order] = $element;
+				unset( $element );
+			}
+		}
+		return $branch;
 	}
 
 	public function get_events(  ) {
@@ -499,7 +499,7 @@ class Filsa2018_Public {
 	public function ogimage_filsa() {
 		if(is_post_type_archive( 'filsa-2018' )) {
 			$image = $this->get_cmb2_option('filsa2018_placeholder');?>
-				<meta property="og:image" content="<?php echo $image;?>"/>
+			<meta property="og:image" content="<?php echo $image;?>"/>
 			<?php
 		}
 	}
@@ -507,7 +507,7 @@ class Filsa2018_Public {
 	public function pagetitle() {
 		$title = $this->get_cmb2_option('filsa2018_title');
 		?>
-			<title><?php echo $title;?></title>
+		<title><?php echo $title;?></title>
 		<?php
 	}
 
@@ -529,9 +529,9 @@ class Filsa2018_Public {
 
 	public function loggedin_var() {
 		?>
-				<script>window.loggedin = <?php echo (is_user_logged_in()) ? 'true' : 'false' ;?>;</script>
-			<?php
-		}
+		<script>window.loggedin = <?php echo (is_user_logged_in()) ? 'true' : 'false' ;?>;</script>
+		<?php
+	}
 
 	public function replace_single_template( $single_template ) {
 		/* Reemplaza todos los singles relacionados con FILSA 2018 */
@@ -563,14 +563,14 @@ class Filsa2018_Public {
 
 	public function redirect_404_if_filsa( $single_template ) {
 		if($this->detect_404_in_filsa()) {
-				header("HTTP/1.0 200 OK");
-				$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
-			} else {
-				return $single_template;
-			}
+			header("HTTP/1.0 200 OK");
+			$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
+		} else {
 			return $single_template;
 		}
-		
+		return $single_template;
+	}
+
 
 	public function detect_404_in_filsa() {
 		if(is_404()) {
@@ -598,8 +598,8 @@ class Filsa2018_Public {
 			if($post) {
 				return $post[0];
 			}
+		}
 	}
-}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
@@ -676,6 +676,29 @@ class Filsa2018_Public {
 
 	public function enqueue_manifest() {
 		echo '<link rel="manifest" href="' . plugin_dir_url( __FILE__ ) . 'manifest.json' . '">';
+	}
+
+	public function register_shortcodes() {
+		add_shortcode('boton_filsa2018', array($this, 'filsa2018_button'));
+	}
+
+
+	public function filsa2018_button($atts) {
+	  /**
+	   * Devuelve un botón con iconito link y texto
+	   * PARAMETROS: [boton url="https://ejemplo.com" text="Clic Aquí" color="blue" icon="fa-angle-double-right" target="_blank"]
+	   * Los Iconos toman la clase de FontAwesome correspondiente
+	   * https://fontawesome.io/icons/
+	   */
+	  $button = shortcode_atts( 
+	  	array(
+	  		'url' => '#',
+	  		'text' => 'Clic aquí',
+	  		'target' => '_blank',
+	  		'color' => 'rojo'
+	  	), $atts );
+
+	  return '<a style="background-color:#CC1011;font-family:Biblioteca, serif;color:white;border-radius:4px;padding:12px 16px;text-transform:uppercase;box-shadow:0 1px 2px #333;margin:10px 0;display:inline-block;" target="' .$button['target']. '" title="' . $button['text'] . '" href="' . $button['url'] . '" class="filsa2018_button ' . $button['color'] . '"> <img class="icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkNhcGFfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyNS43NTlweCIgaGVpZ2h0PSIyNS45NjdweCIgdmlld0JveD0iMCAwIDI1Ljc1OSAyNS45NjciIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI1Ljc1OSAyNS45NjciIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTIzLjEwMSwxNi40MzdsLTEwLjIyMiw2Ljc0OEwyLjY1NywxNi40MzdWMy41NTNsOS41MzQsNS45MzVjMC4yLDAuMTIzLDAuNDI3LDAuMTg4LDAuNjY0LDAuMTg4DQoJYzAsMCwwLjAxNywwLDAuMDI0LTAuMDAyYzAuMDA4LDAuMDAyLDAuMDE3LDAuMDAyLDAuMDE3LDAuMDAyYzAuMjQ1LDAsMC40NzItMC4wNjUsMC42NzItMC4xODhsOS41MzMtNS45MzVWMTYuNDM3eiBNMjMuNzc3LDAuMTk4DQoJTDEyLjkxMSw2LjkzMWwtMC4wMzIsMC4wMTZsLTAuMDMxLTAuMDE2TDEuOTgyLDAuMTk4QzAuODQ5LTAuNDE5LDAsMC41NCwwLDEuMjc2djE1Ljg0NmMwLDAuNDI1LDAuMjQ2LDAuODIzLDAuNjAzLDEuMDU5DQoJbDExLjU3OCw3LjU3OGMwLjE4OSwwLjEyOCwwLjQzOSwwLjIxMywwLjY5OCwwLjIwOGMwLjI2MS0wLjAwNSwwLjUxLTAuMDgsMC42OTgtMC4yMDhsMTEuNTc5LTcuNTc4DQoJYzAuMzU3LTAuMjM2LDAuNjAzLTAuNjM0LDAuNjAzLTEuMDU5VjEuMjc2QzI1Ljc1OSwwLjU0LDI0LjkxMS0wLjQxOSwyMy43NzcsMC4xOTgiLz4NCjwvc3ZnPg0K" alt="Flecha Filsa">' . $button['text'] . '</a><style>.filsa2018_button img {vertical-align:middle; margin-right: 6px; max-width: 20px;margin-top:-5px;}</style>';
 	}
 
 }
