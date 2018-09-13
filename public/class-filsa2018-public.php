@@ -124,7 +124,7 @@ class Filsa2018_Public {
 		));
 	}
 
-	public function filsa2018params( WP_REST_Request $request ) {
+	public function filsa2018params( ) {
 		$cached_params = get_transient('filsa2018params');
 
 		if( false !== $cached_params) {
@@ -163,6 +163,15 @@ class Filsa2018_Public {
 
 
 		return get_transient('filsa2018params');
+	}
+
+	public function output_parameters() {
+		$params = $this->filsa2018params();
+		?>
+		<script>
+			window.params = <?php echo json_encode($params);?>
+		</script>
+		<?php
 	}
 
 	public function filsa2018_events_transients( WP_REST_Request $request ) {
