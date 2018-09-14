@@ -136,7 +136,7 @@ class Filsa2018_Public {
 			return $cached_params;
 		}
 
-		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_formurl', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas'];
+		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas'];
 
 		$params_content = array();
 
@@ -223,6 +223,8 @@ class Filsa2018_Public {
 		//Almacenar lista de cursos
 		$events_content['cursos'] = get_terms( array('taxonomy' => 'cursos') );
 
+		//Almacentar url formulario
+		$events_content['formurl'] = $this->get_cmb2_option($filsa . '_formurl');
 		//Almacenar eventos
 		$events_content['eventos'] = $this->get_events();
 
@@ -385,6 +387,7 @@ class Filsa2018_Public {
 			'organizadores' => cchl_organizer_names( $event->ID ),
 			'evento_caduco'	=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
 			'content'		=> apply_filters( 'the_content', $event->post_content),
+			'lugar'			=> tribe_get_venue( $event->ID),
 			'title'			=> $event->post_title
 		);
 
