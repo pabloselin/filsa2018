@@ -56,12 +56,17 @@ class Filsa2018_Public {
 
 	public function get_cmb2_option( $key = '', $default = false ) {
 		if ( function_exists( 'cmb2_get_option' ) ) {
+			if(WP_ENV == 'development') {
+				$filsa = 'filsa2017';
+			} else {
+				$filsa = 'filsa2018';
+			}
 		// Use cmb2_get_option as it passes through some key filters.
-			return cmb2_get_option( 'filsa2018_options', $key, $default );
+			return cmb2_get_option( $filsa . '_options', $key, $default );
 		}
 
 	// Fallback to get_option if CMB2 is not loaded yet.
-		$opts = get_option( 'filsa2018_options', $default );
+		$opts = get_option( $filsa . '_options', $default );
 
 		$val = $default;
 
@@ -185,8 +190,14 @@ class Filsa2018_Public {
 
 		//Almacenar lista de dias activos
 
-		$inicio = $this->get_cmb2_option('filsa2018_inicio');
-		$fin = $this->get_cmb2_option('filsa2018_fin');
+		if(WP_ENV == 'development') {
+			$filsa = 'filsa2017';
+		} else {
+			$filsa = 'filsa2018';
+		}
+
+		$inicio = $this->get_cmb2_option($filsa .'_inicio');
+		$fin = $this->get_cmb2_option($filsa .'_fin');
 
 
 		if(isset($inicio) && isset($fin)) {
@@ -199,8 +210,8 @@ class Filsa2018_Public {
 			foreach($period as $day) {
 				$ndia = date_i18n('j' , $day->format('U'));
 				$mes = date_i18n('F' , $day->format('U'));
-				$eventos = ($this->get_cmb2_option('filsa2018diaev_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled'; 
-				$visitas = ($this->get_cmb2_option('filsa2018diavg_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled';
+				$eventos = ($this->get_cmb2_option($filsa .'diaev_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled'; 
+				$visitas = ($this->get_cmb2_option($filsa .'diavg_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled';
 				
 				$events_content['diaseventos'][$mes][] = [$this->formatDay($day), $eventos];
 				$events_content['diasvisitasguiadas'][$mes][] = [$this->formatDay($day), $visitas];
@@ -208,6 +219,9 @@ class Filsa2018_Public {
 			}
 
 		}
+
+		//Almacenar lista de cursos
+		$events_content['cursos'] = get_terms( array('taxonomy' => 'cursos') );
 
 		//Almacenar eventos
 		$events_content['eventos'] = $this->get_events();
@@ -252,6 +266,13 @@ class Filsa2018_Public {
 	}
 
 	public function get_events(  ) {
+		
+		if(WP_ENV == 'development') {
+			$term = 'filsa-2017';
+		} else {
+			$term = 'filsa-2018';
+		}
+
 		$args = array(
 			'post_type' => 'tribe_events',
 			'numberposts' => -1,
@@ -263,7 +284,7 @@ class Filsa2018_Public {
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'ferias',
-					'terms' => 'filsa-2018',
+					'terms' => $term,
 					'field' => 'slug'
 				),
 			)
@@ -451,8 +472,7 @@ class Filsa2018_Public {
 		}
 	}
 
-	public function filsa2018_tipostransients() {
-		if( false === ($tiposeventos = get_transient('filsa2018_tiposeventos')) ) {
+	public function filsa2018_tipostransients() {	
 
 			$args = array(
 				'post_type' => 'tribe_events',
@@ -482,10 +502,6 @@ class Filsa2018_Public {
 
 			return $uniquetypes;
 
-		} else {
-			$tiposeventos = get_transient( 'filsa2018_tiposeventos' );
-			return $tiposeventos;
-		}
 	}
 
 	/* Fin de ajuste*/
