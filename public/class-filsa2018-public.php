@@ -474,33 +474,33 @@ class Filsa2018_Public {
 
 	public function filsa2018_tipostransients() {	
 
-			$args = array(
-				'post_type' => 'tribe_events',
-				'numberposts' => -1,
-				'post_status' => 'publish'
-			);
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'ferias',
-					'terms' => array($this->get_cmb2_option('filsa2018_taxfilsa')),
-					'field' => 'slug'
-				)
-			);
-			$eventos = get_posts($args);
-			$tipevarr = array();
-			foreach($eventos as $evento) {
-				$evterms = get_the_terms( $evento->ID, 'cchl_tipoevento' );
-				foreach($evterms as $evterm) {
-					if($evterm->slug != $this->get_cmb2_option('filsa2018_taxfilsavisitas')):
-						$tipevarr[] = $evterm->term_id;
-					endif;
-				}
+		$args = array(
+			'post_type' => 'tribe_events',
+			'numberposts' => -1,
+			'post_status' => 'publish'
+		);
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'ferias',
+				'terms' => array($this->get_cmb2_option('filsa2018_taxfilsa')),
+				'field' => 'slug'
+			)
+		);
+		$eventos = get_posts($args);
+		$tipevarr = array();
+		foreach($eventos as $evento) {
+			$evterms = get_the_terms( $evento->ID, 'cchl_tipoevento' );
+			foreach($evterms as $evterm) {
+				if($evterm->slug != $this->get_cmb2_option('filsa2018_taxfilsavisitas')):
+					$tipevarr[] = $evterm->term_id;
+				endif;
 			}
+		}
 
-			$uniquetypes = array_unique($tipevarr);
-			set_transient( 'filsa2018_tiposeventos', $uniquetypes, 12 * HOUR_IN_SECONDS );
+		$uniquetypes = array_unique($tipevarr);
+		set_transient( 'filsa2018_tiposeventos', $uniquetypes, 12 * HOUR_IN_SECONDS );
 
-			return $uniquetypes;
+		return $uniquetypes;
 
 	}
 
@@ -563,9 +563,10 @@ class Filsa2018_Public {
 	public function replace_single_template( $single_template ) {
 		/* Reemplaza todos los singles relacionados con FILSA 2018 */
 		$isfilsa = $this->condition();
-
 		if( $isfilsa == true ) {
+			
 			$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
+			
 		}
 
 		return $single_template;
@@ -589,12 +590,20 @@ class Filsa2018_Public {
 	}
 
 	public function redirect_404_if_filsa( $single_template ) {
-		if($this->detect_404_in_filsa()) {
+		global $wp_query;
+		if($wp_query->query['name'] != 'service-workerjs') {
+			if($this->detect_404_in_filsa()) {
 			header("HTTP/1.0 200 OK");
 			$single_template = plugin_dir_path( __FILE__ ) . 'partials/filsa2018-public-display.php';
+			} else {
+				return $single_template;
+			}
 		} else {
-			return $single_template;
+			header("HTTP/1.0 200 OK");
+			header('Content-Type: application/javascript');
+			$single_template = plugin_dir_path( __FILE__) .  'partials/service-worker.js';
 		}
+		
 		return $single_template;
 	}
 
@@ -695,8 +704,6 @@ class Filsa2018_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/filsa2018-public.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->plugin_name, 'filsa2018', array( 'scriptsurl' => plugin_dir_url(__FILE__) ) );
 
 	}
@@ -707,6 +714,21 @@ class Filsa2018_Public {
 
 	public function register_shortcodes() {
 		add_shortcode('boton_filsa2018', array($this, 'filsa2018_button'));
+	}
+
+	public function serviceworker_path() {
+		add_rewrite_endpoint( 'service-workerjs', EP_PAGES | EP_PERMALINK | EP_ALL_ARCHIVES );
+	}
+
+	public function serviceworker_endpoint($template) {
+		global $wp_query;
+		if(isset($wp_query->query_vars['service-workerjs'])) {
+			$serviceworker = file_get_contents( plugin_dir_url(__FILE__) . 'partials/service-worker.js');
+			var_dump($serviceworker);
+			$template = $serviceworker;	
+		}
+
+		return $template;
 	}
 
 

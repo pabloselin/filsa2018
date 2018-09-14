@@ -213,6 +213,8 @@ class Filsa2018 {
 			$this->loader->add_action( 'template_include', $plugin_public, 'replace_single_template' );
 			$this->loader->add_action( 'template_redirect', $plugin_public, 'redirect_noticia_filsa' );
 			$this->loader->add_action( 'template_include', $plugin_public, 'redirect_404_if_filsa' );
+			$this->loader->add_action( 'template_include', $plugin_public, 'serviceworker_endpoint' );
+			$this->loader->add_action( 'init', $plugin_public, 'serviceworker_path');
 
 			/* Añadir Manifest para la PWA */
 
