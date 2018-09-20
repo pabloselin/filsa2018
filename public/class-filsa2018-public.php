@@ -570,7 +570,7 @@ class Filsa2018_Public {
 					$ogurl = get_permalink($contents->ID);
 				}
 				?>
-				<meta property="og:title" content="<?php echo $contents->post_title;?>" />
+				<meta property="og:title" content="<?php echo $contents->post_title;?> - FILSA 2018" />
 				<meta property="og:description" content="<?php echo $contents->post_excerpt;?>" />
 				<meta property="og:image" content="<?php echo $image[0];?>" />
 				<meta property="og:url"	content="<?php echo $ogurl;?>" />
