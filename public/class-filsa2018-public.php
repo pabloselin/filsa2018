@@ -222,6 +222,8 @@ class Filsa2018_Public {
 
 		//Almacenar lista de cursos
 		$events_content['cursos'] = get_terms( array('taxonomy' => 'cursos') );
+		//Almacenar tipos de eventos
+		$events_content['tipoevento'] = $this->filsa2018_transientterms($filsa . '_taxfilsavisitas', 'cchl_tipoevento');
 
 		//Almacentar url formulario
 		$events_content['formurl'] = $this->get_cmb2_option($filsa . '_formurl');
@@ -343,6 +345,7 @@ class Filsa2018_Public {
 
 
 	public function preparefilsa2018_content( $post ) {
+		$seotitle = get_option( 'wpseo_titles' );
 		$post_prepared = array(
 			'id' => $post->ID,
 			'date' => $post->post_date,
@@ -351,7 +354,8 @@ class Filsa2018_Public {
 			'excerpt' => $post->post_excerpt,
 			'slug' => $post->post_name,
 			'parent' => $post->post_parent,
-			'media' => $this->getallimageurls( $post->ID )
+			'media' => $this->getallimageurls( $post->ID ),
+			'seotitle' => $post->post_title . ' - ' . $seotitle['title-filsa-2018']
 		);
 		if( $post->post_type == 'filsa-2018' ) {
 			$post_prepared['component'] = get_post_meta($post->ID, 'filsa2018_componente', true);
@@ -405,10 +409,10 @@ class Filsa2018_Public {
 	}
 
 	/* Ajustar para esta versión */
-	public function filsa2018_transientterms($transient, $option, $taxonomy = 'cchl_tipoevento') {
-		if( false === ($vgterms = get_transient($transient)) ) {
+	public function filsa2018_transientterms($option, $taxonomy = 'cchl_tipoevento') {
 			$vg = $this->get_cmb2_option($option);
 			$vgtermids = array();
+			$unique_ids = array();
 			$visitasargs = array(
 				'post_type' => 'tribe_events',
 				'numberposts' => -1,
@@ -427,16 +431,11 @@ class Filsa2018_Public {
 
 				foreach($typeterms as $typeterm) {
 					if($typeterm->slug != $vg)
-						$vgtermids[] = $typeterm->term_id;
+						$vgtermids[$typeterm->term_id] = $typeterm->name;
 				}
 			}
 			$unique_ids = array_unique($vgtermids);
-			set_transient( $transient, $unique_ids, 12 * HOUR_IN_SECONDS );
 			return $unique_ids;
-		} else {
-			$vgids = get_transient( $transient );
-			return $vgids;
-		}
 	}
 
 	public function filsa2018_expositores() {
@@ -629,7 +628,7 @@ class Filsa2018_Public {
 			$refinedslug = $slug[count($slug) -2];
 			$args = array(
 				'name' => $refinedslug,
-				'post_type' => 'post',
+				'post_type' => 'any',
 				'post_status' => 'publish',
 				'numberposts' => 1
 			);
@@ -727,7 +726,6 @@ class Filsa2018_Public {
 		global $wp_query;
 		if(isset($wp_query->query_vars['service-workerjs'])) {
 			$serviceworker = file_get_contents( plugin_dir_url(__FILE__) . 'partials/service-worker.js');
-			var_dump($serviceworker);
 			$template = $serviceworker;	
 		}
 
