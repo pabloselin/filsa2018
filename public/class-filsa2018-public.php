@@ -563,9 +563,9 @@ class Filsa2018_Public {
 				$thumbnail_id = get_post_thumbnail_id( $contents->ID );
 				$image = wp_get_attachment_image_src( $thumbnail_id, 'imagen_single');
 				if(get_post_type( $contents->ID) == 'post') {
-					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/noticias/' . $contents->post_name;
+					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/noticias/' . $contents->post_name . '/';
 				} elseif(get_post_type( $contents->ID) == 'tribe_events') {
-					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/eventos/' . $contents->post_name;
+					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/eventos/' . $contents->post_name . '/';
 				} else {
 					$ogurl = get_permalink($contents->ID);
 				}
