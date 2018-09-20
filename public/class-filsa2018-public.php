@@ -345,7 +345,6 @@ class Filsa2018_Public {
 
 
 	public function preparefilsa2018_content( $post ) {
-		$seotitle = get_option( 'wpseo_titles' );
 		$post_prepared = array(
 			'id' => $post->ID,
 			'date' => $post->post_date,
@@ -355,7 +354,7 @@ class Filsa2018_Public {
 			'slug' => $post->post_name,
 			'parent' => $post->post_parent,
 			'media' => $this->getallimageurls( $post->ID ),
-			'seotitle' => $post->post_title . ' - ' . $seotitle['title-filsa-2018']
+			'seotitle' => $post->post_title . ' - FILSA 2018'
 		);
 		if( $post->post_type == 'filsa-2018' ) {
 			$post_prepared['component'] = get_post_meta($post->ID, 'filsa2018_componente', true);
