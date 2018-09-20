@@ -97,24 +97,6 @@ class Filsa2018_Public {
 		return $this->get_cmb2_option( $request->get_param('option') );
 	}
 
-	public function rest_menu( ) {
-		register_rest_route( 'filsa2018/v1/', '/menus/(?P<menus>\w+)', array(
-			'methods' => 'GET',
-			'callback' => array($this, 'rest_get_menus'),
-			'args' => array(
-				'menus' => array(
-					'validate_callback' => function( $param, $request, $key) {
-						return sanitize_text_field( $param );
-					}
-				)
-			)
-		));
-	}
-
-	public function rest_get_menus( WP_REST_Request $request ) {
-		return wp_get_nav_menu_items( $request->get_param('menus') );
-	}
-
 	public function rest_filsa2018params() {
 		register_rest_route( 'filsa2018/v1/', '/params/', array(
 			'methods' => 'GET',
@@ -126,6 +108,20 @@ class Filsa2018_Public {
 		register_rest_route( 'filsa2018/v1/', '/events/', array(
 			'methods' => 'GET',
 			'callback' => array( $this, 'filsa2018_events_transients')
+		));
+	}
+
+	public function rest_filsa2018eventslug() {
+		register_rest_route( 'filsa2018/v1/', '/events/(?P<slug>[a-zA-Z0-9-]+)', array(
+			'methods' 	=> 'GET',
+			'callback' 	=> array( $this, 'filsa2018_prepare_event_rest'),
+			'args' => array(
+				'slug' => array(
+					'validate_callback' => function( $param, $request, $key) {
+						return sanitize_text_field( $param );
+					}
+				)
+			)
 		));
 	}
 
@@ -391,10 +387,29 @@ class Filsa2018_Public {
 			'evento_caduco'	=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
 			'content'		=> apply_filters( 'the_content', $event->post_content),
 			'lugar'			=> tribe_get_venue( $event->ID),
-			'title'			=> $event->post_title
+			'title'			=> $event->post_title,
+			'cupos'			=> get_post_meta($event->ID, '_cmb_cupos', true),
+			'cerrado'		=> get_post_meta($event->ID, '_cmb_cerrado', true)
 		);
 
 		return $event_prepared;
+	}
+
+	public function filsa2018_prepare_event_rest( WP_REST_Request $request ) {
+		$postname = $request->get_param('slug');
+		$args = array(
+			'name' => $postname,
+			'post_type' => 'tribe_events',
+			'numberposts' => 1
+		);
+		$event = get_posts($args);
+
+		if($event) {
+			return $this->prepare_eventinfo( $event[0] );
+		} else {
+			return false;
+		}
+		
 	}
 
 	public function termnames( $terms ) {
@@ -547,11 +562,18 @@ class Filsa2018_Public {
 			if($contents) {
 				$thumbnail_id = get_post_thumbnail_id( $contents->ID );
 				$image = wp_get_attachment_image_src( $thumbnail_id, 'imagen_single');
+				if(get_post_type( $contents->ID) == 'post') {
+					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/noticias/' . $contents->post_name;
+				} elseif(get_post_type( $contents->ID) == 'tribe_events') {
+					$ogurl = get_bloginfo('url') . '/ferias/filsa/filsa-2018/eventos/' . $contents->post_name;
+				} else {
+					$ogurl = get_permalink($contents->ID);
+				}
 				?>
 				<meta property="og:title" content="<?php echo $contents->post_title;?>" />
 				<meta property="og:description" content="<?php echo $contents->post_excerpt;?>" />
 				<meta property="og:image" content="<?php echo $image[0];?>" />
-				<meta property="og:url"	content="<?php echo get_permalink($contents->ID);?>" />
+				<meta property="og:url"	content="<?php echo $ogurl;?>" />
 				<meta property="og:type" content="article" />
 				<meta property="fb:app_id" content="<?php echo FB_APPID;?>" />
 			<?php }

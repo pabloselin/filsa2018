@@ -222,9 +222,9 @@ class Filsa2018 {
 
 			/* Añadir Custom REST Endpoints */
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_cmb2_option');
-			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_menu');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018params');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018events');
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018eventslug');
 
 		}
 	}
