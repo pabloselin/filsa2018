@@ -235,11 +235,7 @@ class Filsa2018_Public {
 
 		$events_transient = set_transient('filsa2018eventos', $events_content, 3600);
 
-		if( false == $events_transient) {
-			return false;
-		}
-
-		return get_transient('filsa2018eventos');
+		return $events_content;
 	}
 
 	public function filsa2018_visitas_transients( WP_REST_Request $request ) {
@@ -293,11 +289,7 @@ class Filsa2018_Public {
 
 		$events_transient = set_transient('filsa2018visitasguiadas', $events_content, 3600);
 
-		if( false == $events_transient) {
-			return false;
-		}
-
-		return get_transient('filsa2018eventos');
+		return $events_content;
 	}
 
 	public function formatDay( $day ) {
