@@ -111,6 +111,13 @@ class Filsa2018_Public {
 		));
 	}
 
+	public function rest_filsa2018visitas() {
+		register_rest_route( 'filsa2018/v1/', '/visitas-guiadas/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018_visitas_transients')
+		));
+	}
+
 	public function rest_filsa2018eventslug() {
 		register_rest_route( 'filsa2018/v1/', '/events/(?P<slug>[a-zA-Z0-9-]+)', array(
 			'methods' 	=> 'GET',
@@ -235,6 +242,64 @@ class Filsa2018_Public {
 		return get_transient('filsa2018eventos');
 	}
 
+	public function filsa2018_visitas_transients( WP_REST_Request $request ) {
+		$cached_events = get_transient('filsa2018visitasguiadas');
+
+		if( false !== $cached_events) {
+			return $cached_events;
+		}
+
+		$events_content = [];
+
+		//Almacenar lista de dias activos
+
+		if(WP_ENV == 'development') {
+			$filsa = 'filsa2017';
+		} else {
+			$filsa = 'filsa2018';
+		}
+
+		$inicio = $this->get_cmb2_option($filsa .'_inicio');
+		$fin = $this->get_cmb2_option($filsa .'_fin');
+
+
+		if(isset($inicio) && isset($fin)) {
+			$iniciofilsa = new DateTime( $inicio );
+			$finfilsa = new DateTime( $fin );
+			$finfilsa = $finfilsa->modify('+1 day');
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+			foreach($period as $day) {
+				$ndia = date_i18n('j' , $day->format('U'));
+				$mes = date_i18n('F' , $day->format('U'));
+				$visitas = ($this->get_cmb2_option($filsa .'diavg_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled';
+				
+				$events_content['diasvisitasguiadas'][$mes][] = [$this->formatDay($day), $visitas];
+				
+			}
+
+		}
+
+		//Almacenar lista de cursos
+		$events_content['cursos'] = get_terms( array('taxonomy' => 'cursos') );
+		//Almacenar tipos de eventos
+		$events_content['tipoevento'] = $this->filsa2018_transientterms($filsa . '_taxfilsavisitas', 'cchl_tipoevento');
+
+		//Almacentar url formulario
+		$events_content['formurl'] = $this->get_cmb2_option($filsa . '_formurl');
+		//Almacenar eventos
+		$events_content['eventos'] = $this->get_events(true);
+
+		$events_transient = set_transient('filsa2018visitasguiadas', $events_content, 3600);
+
+		if( false == $events_transient) {
+			return false;
+		}
+
+		return get_transient('filsa2018eventos');
+	}
+
 	public function formatDay( $day ) {
 		$dia = strtotime($day->format('Y-m-d'));
 		setlocale(LC_ALL, 'es_ES');
@@ -265,7 +330,7 @@ class Filsa2018_Public {
 		return $branch;
 	}
 
-	public function get_events(  ) {
+	public function get_events( $visitas = false ) {
 		
 		if(WP_ENV == 'development') {
 			$term = 'filsa-2017';
@@ -280,15 +345,31 @@ class Filsa2018_Public {
 			'orderby' => 'meta_value',
 			'meta_key' => '_EventStartDate',
 			'meta_type' => 'DATETIME',
-			'order' => 'ASC',
-			'tax_query' => array(
+			'order' => 'ASC'
+		);
+
+		if($visitas == true ) {
+			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'ferias',
 					'terms' => $term,
 					'field' => 'slug'
 				),
-			)
-		);
+				array(
+					'taxonomy' => 'cchl_tipoevento',
+					'terms' => 'visitas-guiadas',
+					'field' => 'slug'
+				),
+			);
+		} else {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'ferias',
+					'terms' => $term,
+					'field' => 'slug'
+				)
+			);
+		}
 
 		$events = get_posts($args);
 		$events_prepared = [];
