@@ -429,6 +429,11 @@ class Filsa2018_Public {
 			$post_prepared['component'] = get_post_meta($post->ID, 'filsa2018_componente', true);
 		}
 
+		//Custom fields para algunos componentes
+		if(get_post_meta($post->ID, 'filsa2018_componente', true) == 'invitados') {
+			$post_prepared['extrafields'] = get_post_meta($post->ID, 'filsa2018_invitado', true);
+		}
+
 		return $post_prepared;
 	}
 
