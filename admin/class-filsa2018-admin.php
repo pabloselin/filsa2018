@@ -225,6 +225,44 @@ public function content_metaboxes() {
 			'archivonoticias' => __( 'Archivo de Noticias', 'filsa2018' )
 		),
 	) );
+
+	$invitados = new_cmb2_box(array(
+		'id'			=> $prefix . 'invitados',
+		'title'			=> 'Invitados',
+		'object_types' 	=> array( 'filsa-2018' ),
+		'show_on'		=> array( 
+									'meta_key' =>  $prefix . '_componente',
+									'meta_value' => 'invitados'
+							),
+		'context' 		=> 'normal',
+		'priority' 		=> 'high'
+	));
+
+	$fields_invitados = $invitados->add_field( array(
+							'id' 			=> $prefix . '_invitado',
+							'type'			=> 'group',
+							'description'	=> 'Información invitado/a',
+							'repeatable'	=> true,
+							'sortable'		=> true
+	));
+
+	$invitados->add_group_field( $fields_invitados, array(
+		'name' 	=> 'Nombre invitado/a',
+		'id'	=> 'nombre',
+		'type'	=> 'text'
+	));
+
+	$invitados->add_group_field( $fields_invitados, array(
+		'name' 	=> 'Biografía o descripción invitado/a',
+		'id'	=> 'bio',
+		'type'	=> 'wysiwyg'
+	));
+
+	$invitados->add_group_field( $fields_invitados, array(
+		'name' 	=> 'Foto invitado/a',
+		'id'	=> 'foto',
+		'type'	=> 'file'
+	));
 }
 
 public function options_metaboxes() {
@@ -549,5 +587,32 @@ public function options_metaboxes() {
 
 
 }
+
+public function cmb_show_on_meta_value( $display, $meta_box ) {
+		if ( ! isset( $meta_box['show_on']['meta_key'] ) ) {
+			return $display;
+		}
+
+		$post_id = 0;
+
+		// If we're showing it based on ID, get the current ID
+		if ( isset( $_GET['post'] ) ) {
+			$post_id = $_GET['post'];
+		} elseif ( isset( $_POST['post_ID'] ) ) {
+			$post_id = $_POST['post_ID'];
+		}
+
+		if ( ! $post_id ) {
+			return $display;
+		}
+
+		$value = get_post_meta( $post_id, $meta_box['show_on']['meta_key'], true );
+
+		if ( empty( $meta_box['show_on']['meta_value'] ) ) {
+			return (bool) $value;
+		}
+
+		return $value == $meta_box['show_on']['meta_value'];
+	}
 
 }
