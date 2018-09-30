@@ -227,6 +227,7 @@ class Filsa2018 {
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018events');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018visitas');
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018eventslug');
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'rest_filsa2018expositores');
 
 		}
 	}

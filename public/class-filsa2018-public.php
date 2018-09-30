@@ -132,6 +132,13 @@ class Filsa2018_Public {
 		));
 	}
 
+	public function rest_filsa2018expositores() {
+		register_rest_route( 'filsa2018/v1/', '/expositores/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018_expositores')
+		) );
+	}
+
 	public function filsa2018params( ) {
 		$cached_params = get_transient('filsa2018params');
 
@@ -139,7 +146,7 @@ class Filsa2018_Public {
 			return $cached_params;
 		}
 
-		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas'];
+		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas', 'filsa2018_facebookid', 'filsa2018_instagrampost'];
 
 		$params_content = array();
 
@@ -414,12 +421,13 @@ class Filsa2018_Public {
 
 
 	public function preparefilsa2018_content( $post ) {
+		$excerpt = (strlen($post->post_excerpt) > 1)? $post->post_excerpt : $this->preparexcerpt($post->post_content, 200);
 		$post_prepared = array(
 			'id' => $post->ID,
 			'date' => $post->post_date,
 			'content' => apply_filters( 'the_content', $post->post_content ),
 			'title' => $post->post_title,
-			'excerpt' => $post->post_excerpt,
+			'excerpt' => $excerpt,
 			'slug' => $post->post_name,
 			'parent' => $post->post_parent,
 			'media' => $this->getallimageurls( $post->ID ),
@@ -435,6 +443,24 @@ class Filsa2018_Public {
 		}
 
 		return $post_prepared;
+	}
+
+	public function preparexcerpt( $postcontent, $length) {
+		return $this->tokenTruncate(strip_tags($postcontent), $length);
+	}
+
+	public function tokenTruncate($string, $your_desired_width) {
+	  $parts = preg_split('/([\s\n\r]+)/', $string, null, PREG_SPLIT_DELIM_CAPTURE);
+	  $parts_count = count($parts);
+
+	  $length = 0;
+	  $last_part = 0;
+	  for (; $last_part < $parts_count; ++$last_part) {
+	    $length += strlen($parts[$last_part]);
+	    if ($length > $your_desired_width) { break; }
+	  }
+
+	  return implode(array_slice($parts, 0, $last_part));
 	}
 
 	public function getallimageurls( $postid ) {
@@ -530,7 +556,7 @@ class Filsa2018_Public {
 			return $unique_ids;
 	}
 
-	public function filsa2018_expositores() {
+	public function filsa2018_expositores( WP_REST_Request $request ) {
 		if( false === ($expterms = get_transient('filsa2018_expositores')) ) {
 			$args = array(
 				'post_type' => 'tribe_organizer',
@@ -548,11 +574,12 @@ class Filsa2018_Public {
 			$expositores = get_posts($args);
 			$expositores_info = array();
 			foreach($expositores as $expitem) {
+				//var_dump(get_post_meta($expitem->ID));
 				$expitem_info['title'] = $expitem->post_title;
-				$expitem_info['location'] = filsa2018_sortstandlocationjson($expitem->ID);
+				$expitem_info['location'] = $this->filsa2018_sortstandlocationjson($expitem->ID);
 				$expitem_info['web'] = get_post_meta($expitem->ID, '_OrganizerWebsite', true);
-				$expitem_info['distribuidor'] = get_post_meta($expitem->ID, '_filsa2018_distribuidor', true);
-				$expitem_info['sellos'] = get_post_meta($expitem->ID, '_filsa2018_sellos', true);
+				$expitem_info['distribuidor'] = get_post_meta($expitem->ID, 'filsa2018distribuidor', true);
+				$expitem_info['sellos'] = get_post_meta($expitem->ID, 'filsa2018_sellos', true);
 				$expitem_info['materias'] = get_the_terms($expitem->ID, 'materia');
 
 				$expositores_info[] = $expitem_info;
@@ -565,6 +592,13 @@ class Filsa2018_Public {
 			return $expositores_info;
 		}
 	}
+
+	public function filsa2018_sortstandlocationjson( $postid ) {
+	    $ubicaciones = get_post_meta($postid, 'filsa2018ubicacion', true);
+	    if($ubicaciones):
+	        return $ubicaciones;
+	    endif;
+	}  
 
 	public function filsa2018_tipostransients() {	
 

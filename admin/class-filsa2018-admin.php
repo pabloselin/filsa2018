@@ -217,12 +217,13 @@ public function content_metaboxes() {
 		'id' => $prefix . '_componente',
 		'type' => 'select',
 		'options' => array(
-			'normal' => __('Normal', 'filsa2018'),
-			'programa' => __( 'Programa', 'filsa2018' ),
-			'buscalibros' => __( 'Buscador de libros', 'filsa2018' ),
-			'invitados' => __( 'Invitados', 'filsa2018' ),
-			'visitas-guiadas' => __( 'Visitas guiadas', 'filsa2018' ),
-			'archivonoticias' => __( 'Archivo de Noticias', 'filsa2018' )
+			'normal' 			=> __('Normal', 'filsa2018'),
+			'programa' 			=> __( 'Programa', 'filsa2018' ),
+			'buscalibros' 		=> __( 'Buscador de libros', 'filsa2018' ),
+			'invitados' 		=> __( 'Invitados', 'filsa2018' ),
+			'visitas-guiadas' 	=> __( 'Visitas guiadas', 'filsa2018' ),
+			'archivonoticias' 	=> __( 'Archivo de Noticias', 'filsa2018' ),
+			'expositores'		=> __( 'Expositores', 'filsa2018' )
 		),
 	) );
 
@@ -263,6 +264,77 @@ public function content_metaboxes() {
 		'id'	=> 'foto',
 		'type'	=> 'file'
 	));
+
+	$info_expo = new_cmb2_box( array(
+			'id' => $prefix . 'expdatos',
+			'title' => 'Datos adicionales expositor',
+			'object_types' => array('tribe_organizer'),
+			'show_on' => array(
+						'key' => 'taxonomy',
+						'value' => array(
+							'ferias' => 'filsa-2018'
+							)
+						),
+			'context' => 'normal',
+			'priority' => 'high'
+		));
+
+	$info_expo->add_field( array(
+		'name' => 'Distribuidor',
+		'id' => $prefix . 'distribuidor',
+ 		'type' => 'text',
+ 		'desc' => 'Actividad principal'
+	));
+
+	$info_expo->add_field( array(
+		'name' => 'Sellos representados',
+		'id' => $prefix . 'sellos',
+		'type' => 'text'
+	));
+
+	$expositor_info = new_cmb2_box( array(
+		'id'           => $prefix . 'stands',
+		'title'        => __( 'Stands', 'filsa2018' ),
+		'object_types' => array( 'tribe_organizer', 'tribe_events' ),
+		'show_on' => array(
+						'key' => 'taxonomy',
+						'value' => array(
+							'ferias' => 'filsa-2018'
+							)
+						),
+		'context'      => 'normal',
+		'priority'     => 'high',
+	) );
+
+	$grupo_ubicacion = $expositor_info->add_field( array(
+		'name' => __( 'Ubicación', 'cchl' ),
+		'id' => $prefix . 'ubicacion',
+		'type' => 'group',
+		'desc' => __( 'Ubicación del expositor / evento', 'cchl' ),
+	) );
+
+	$expositor_info->add_group_field( $grupo_ubicacion, array(
+		'name' => 'Sector',
+		'id'   => $prefix . 'sector',
+		'type' => 'select',
+		'desc' => 'Sector en que se ubica el expositor',
+		'options' => array(
+			'a' => 'A',
+			'b' => 'B',
+			'c' => 'C',
+			'd' => 'D',
+			'e' => 'E'
+		)
+		// 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+	) );
+
+	$expositor_info->add_group_field( $grupo_ubicacion, array(
+		'name' => 'Stands',
+		'id' => $prefix . 'stands',
+		'type' => 'text',
+		'desc' => 'Stand en que se ubica el expositor (dentro del sector asignado más arriba)',
+		'repeatable' => true
+	) );
 }
 
 public function options_metaboxes() {
@@ -390,22 +462,36 @@ public function options_metaboxes() {
 	$cmb_options->add_field( array(
 		'name' => __( 'Twitter', 'filsa_2018' ),
 		'id' => 'filsa2018_twitter',
-		'type' => 'text_url',
-		'desc' => __( 'URL de perfil de Twitter para FILSA 2018', 'filsa_2018' ),
+		'type' => 'text',
+		'desc' => __( 'Nombre de perfil de Twitter para FILSA 2018', 'filsa_2018' ),
 	) );
 
 	$cmb_options->add_field( array(
 		'name' => __( 'Facebook', 'filsa_2018' ),
 		'id' => 'filsa2018_facebook',
-		'type' => 'text_url',
-		'desc' => __( 'URL de página de Facebook para FILSA 2018', 'filsa_2018' ),
+		'type' => 'text',
+		'desc' => __( 'Nombre de página de Facebook para FILSA 2018', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Facebook APPID', 'filsa_2018' ),
+		'id' => 'filsa2018_facebookid',
+		'type' => 'text',
+		'desc' => __( 'APP ID de Facebook', 'filsa_2018' ),
 	) );
 
 	$cmb_options->add_field( array(
 		'name' => __( 'Instagram', 'filsa_2018' ),
 		'id' => 'filsa2018_instagram',
+		'type' => 'text',
+		'desc' => __( 'Nombre de perfil de Instagram para FILSA 2018', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Post de Instagram', 'filsa_2018' ),
+		'id' => 'filsa2018_instagrampost',
 		'type' => 'text_url',
-		'desc' => __( 'URL de perfil de Instagram para FILSA 2018', 'filsa_2018' ),
+		'desc' => __( 'URL del último post de Instagram para FILSA 2018', 'filsa_2018' ),
 	) );
 
 	$cmb_options->add_field( array(
