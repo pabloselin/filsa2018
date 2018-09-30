@@ -692,6 +692,12 @@ class Filsa2018_Public {
 		}
 	}
 
+	public function env_var() {
+		?>
+		<script>window.env = "<?php echo WP_JSENV;?>";</script>
+		<?php
+	}
+
 	public function loggedin_var() {
 		?>
 		<script>window.loggedin = <?php echo (is_user_logged_in()) ? 'true' : 'false' ;?>;</script>
