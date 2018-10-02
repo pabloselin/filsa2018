@@ -516,6 +516,20 @@ public function options_metaboxes() {
 	) );
 
 	$cmb_options->add_field( array(
+		'name' => __( 'Aviso', 'filsa_2018' ),
+		'id' => 'filsa2018_aviso',
+		'type' => 'wysiwyg',
+		'desc' => __( 'Texto de aviso para página de inicio', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Mostrar aviso', 'filsa_2018' ),
+		'id' => 'filsa2018_showaviso',
+		'type' => 'checkbox',
+		'desc' => __( 'Activar aviso en página de inicio', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
 		'name' => __( 'Título en Página Principal', 'filsa_2018' ),
 		'id' => 'filsa2018_title',
 		'type' => 'text',
