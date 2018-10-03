@@ -102,8 +102,9 @@ class Filsa2018_Admin {
 
 	public function menu_positions() {
 		register_nav_menus( array(
-			'main_menu_filsa2018' => 'Navegación principal FILSA 2018',
-			'featured_news_filsa2018' => 'Noticias destacadas FILSA 2018',
+			'main_menu_filsa2018' 		=> 'Navegación principal FILSA 2018',
+			'main_menu_dos_filsa2018' 	=> 'Navegación principal FILSA 2018 (segunda línea)',
+			'featured_news_filsa2018' 	=> 'Noticias destacadas FILSA 2018',
 			'featured_events_filsa2018' => 'Eventos destacados FILSA 2018'
 		));
 	}
@@ -399,6 +400,15 @@ public function options_metaboxes() {
 	$cmb_options->add_field( array(
 		'name' => __( 'Posición de Menú para navegación general', 'filsa_2018' ),
 		'id' => 'filsa2018_menu',
+        'type' => 'select',
+        'show_option_none' => true,
+		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
+		'options_cb' => array($this, 'return_idmenuofpositions')
+    ) );
+
+    $cmb_options->add_field( array(
+		'name' => __( 'Posición de Menú para navegación general (segunda línea)', 'filsa_2018' ),
+		'id' => 'filsa2018_menu_dos',
         'type' => 'select',
         'show_option_none' => true,
 		'desc' => __( 'Posición del menú a utilizar', 'filsa_2018' ),
