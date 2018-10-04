@@ -146,7 +146,7 @@ class Filsa2018_Public {
 			return $cached_params;
 		}
 
-		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menu_dos', 'filsa2018_menunoticias', 'filsa2018_menueventos', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas', 'filsa2018_facebookid', 'filsa2018_instagrampost', 'filsa2018_aviso', 'filsa2018_showaviso'];
+		$params = ['filsa2018_cabecera_escritorio', 'filsa2018_cabecera_movil', 'filsa2018_placeholder', 'filsa2018_map', 'filsa2018_menu', 'filsa2018_menu_dos', 'filsa2018_menunoticias', 'filsa2018_menueventos','filsa2018_fastlinks', 'filsa2018_taxfilsa', 'filsa2018_inicio', 'filsa2018_fin', 'filsa2018_twitter', 'filsa2018_instagram', 'filsa2018_facebook', 'filsa2018_flickr', 'filsa2018_intro', 'filsa2018_title', 'filsa2018_titleinside', 'filsa2018_taxfilsavisitas', 'filsa2018_taxfilsafirmas', 'filsa2018_facebookid', 'filsa2018_instagrampost', 'filsa2018_aviso', 'filsa2018_showaviso'];
 
 		$params_content = array();
 
@@ -155,7 +155,7 @@ class Filsa2018_Public {
 			if($fieldcontent) {
 				if($param == 'filsa2018_menunoticias' || $param == 'filsa2018_menueventos') {
 					$params_content[$param] =wp_get_nav_menu_items( $fieldcontent );
-				} elseif($param == 'filsa2018_menu' || $param == 'filsa2018_menu_dos') {
+				} elseif($param == 'filsa2018_menu' || $param == 'filsa2018_menu_dos' || $param == 'filsa2018_fastlinks') {
 					$params_content[$param] = $this->buildTree(wp_get_nav_menu_items( $fieldcontent ), 0);
 				} elseif($param == 'filsa2018_intro') {
 					$params_content[$param]= apply_filters( 'the_content', $fieldcontent );
