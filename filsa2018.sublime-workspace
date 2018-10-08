@@ -295,7 +295,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/MenuRedes.js",
 			"settings":
 			{
-				"buffer_size": 1689,
+				"buffer_size": 1847,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -331,7 +331,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/App.js",
 			"settings":
 			{
-				"buffer_size": 9098,
+				"buffer_size": 9297,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -349,7 +349,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/MenuMobile.js",
 			"settings":
 			{
-				"buffer_size": 1570,
+				"buffer_size": 3015,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -367,7 +367,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/FastLinks.js",
 			"settings":
 			{
-				"buffer_size": 1795,
+				"buffer_size": 1814,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -731,6 +731,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Button.Group",
+			"props",
+			"StyledButtons",
 			"flickr",
 			"state",
 			"props",
@@ -855,10 +858,7 @@
 			"Dropdown",
 			"StyledDropdown",
 			"Dropdown.Item",
-			"console.log",
-			"refinene",
-			"refineurl",
-			"Grid.Column"
+			"console.log"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -881,7 +881,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -890,15 +890,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1689,
+						"buffer_size": 1847,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								41,
-								41
+								329,
+								329
 							]
 						],
 						"settings":
@@ -910,7 +910,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -939,7 +939,7 @@
 						"translation.y": 8135.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -968,7 +968,7 @@
 						"translation.y": 2368.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -997,7 +997,7 @@
 						"translation.y": 1598.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1006,15 +1006,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9098,
+						"buffer_size": 9297,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1137,
-								1137
+								4121,
+								4121
 							]
 						],
 						"settings":
@@ -1024,10 +1024,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1628.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1053,10 +1053,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 204.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1065,15 +1065,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1570,
+						"buffer_size": 3015,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								572,
-								572
+								631,
+								631
 							]
 						],
 						"settings":
@@ -1082,10 +1082,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 209.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1114,7 +1114,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -1123,15 +1123,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1795,
+						"buffer_size": 1814,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								723,
-								723
+								264,
+								264
 							]
 						],
 						"settings":
@@ -1140,10 +1140,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1188,8 +1188,8 @@
 						"selection":
 						[
 							[
-								510,
-								510
+								1457,
+								1457
 							]
 						],
 						"settings":
@@ -1198,10 +1198,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1256,16 +1256,24 @@
 		"selected_items":
 		[
 			[
-				"menured",
-				"filsa2018-frontend/src/components/MenuRedes.js"
+				"head",
+				"filsa2018-frontend/src/components/Header.js"
 			],
 			[
 				"app",
 				"filsa2018-frontend/src/App.js"
 			],
 			[
-				"head",
-				"filsa2018-frontend/src/components/Header.js"
+				"menured",
+				"filsa2018-frontend/src/components/MenuRedes.js"
+			],
+			[
+				"menumo",
+				"filsa2018-frontend/src/components/MenuMobile.js"
+			],
+			[
+				"fastli",
+				"filsa2018-frontend/src/components/FastLinks.js"
 			],
 			[
 				"publi",
@@ -1274,10 +1282,6 @@
 			[
 				"admin",
 				"filsa2018/admin/class-filsa2018-admin.php"
-			],
-			[
-				"menumo",
-				"filsa2018-frontend/src/components/MenuMobile.js"
 			],
 			[
 				"fastl",
@@ -1318,10 +1322,6 @@
 			[
 				"firstn",
 				"filsa2018-frontend/src/components/FirstNoticia.js"
-			],
-			[
-				"fastli",
-				"filsa2018-frontend/src/components/FastLinks.js"
 			],
 			[
 				"prehe",
