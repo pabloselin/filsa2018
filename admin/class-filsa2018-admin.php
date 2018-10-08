@@ -495,6 +495,13 @@ public function options_metaboxes() {
 	) );
 
 	$cmb_options->add_field( array(
+		'name' => __( 'Youtube', 'filsa_2018' ),
+		'id' => 'filsa2018_youtube',
+		'type' => 'text',
+		'desc' => __( 'URL de canal de Youtube para FILSA 2018', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
 		'name' => __( 'Facebook APPID', 'filsa_2018' ),
 		'id' => 'filsa2018_facebookid',
 		'type' => 'text',
