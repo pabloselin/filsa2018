@@ -466,7 +466,20 @@ class Filsa2018_Public {
 
 		//Custom fields para algunos componentes
 		if(get_post_meta($post->ID, 'filsa2018_componente', true) == 'invitados') {
-			$post_prepared['extrafields'] = get_post_meta($post->ID, 'filsa2018_invitado', true);
+			$invitados = get_post_meta($post->ID, 'filsa2018_invitado', true);
+			$invsdata = array();
+			foreach($invitados as $invitado) {
+				$imginv = wp_get_attachment_image_src( $invitado['foto_id'], 'medium' );
+				$imginv_large = wp_get_attachment_image_src( $invitado['foto_id'], 'large' );
+				$invdata = array();
+				$invdata['bio'] = $invitado['bio'];
+				$invdata['nombre'] = $invitado['nombre'];
+				$invdata['foto'] = $imginv[0];
+				$invdata['foto_grande'] = $imginv_large[0];
+				$invsdata[] = $invdata;
+			}
+
+			$post_prepared['extrafields'] = $invsdata;
 		}
 
 		return $post_prepared;
