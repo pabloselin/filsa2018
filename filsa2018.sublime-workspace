@@ -358,7 +358,8 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Invitados.js",
 			"settings":
 			{
-				"buffer_size": 2628,
+				"buffer_size": 2739,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -730,7 +731,7 @@
 	],
 	"find":
 	{
-		"height": 41.0
+		"height": 55.0
 	},
 	"find_in_files":
 	{
@@ -747,6 +748,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"}\n",
 			"Button.Group",
 			"props",
 			"StyledButtons",
@@ -873,8 +875,7 @@
 			"this.props.",
 			"Dropdown",
 			"StyledDropdown",
-			"Dropdown.Item",
-			"console.log"
+			"Dropdown.Item"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -897,7 +898,7 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -1110,15 +1111,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2628,
+						"buffer_size": 2739,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2315,
+								2315
 							]
 						],
 						"settings":
@@ -1127,10 +1128,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1428.0,
+						"translation.y": 1377.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1146,8 +1147,8 @@
 						"selection":
 						[
 							[
-								3071,
-								3071
+								2416,
+								2416
 							]
 						],
 						"settings":
@@ -1156,10 +1157,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1938.0,
+						"translation.y": 1683.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1330,12 +1331,12 @@
 		"selected_items":
 		[
 			[
-				"defau",
-				"filsa2018-frontend/src/components/Default.js"
-			],
-			[
 				"invit",
 				"filsa2018-frontend/src/components/Invitados.js"
+			],
+			[
+				"defau",
+				"filsa2018-frontend/src/components/Default.js"
 			],
 			[
 				"head",
@@ -1847,9 +1848,13 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "csd",
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"~/Documentos/code/php/csd/csd_web/public/wp-content/themes/universe_theme/csdweb.sublime-project"
+			],
 			[
 				"csd",
 				"~/Documentos/code/php/csd/csd_web/public/wp-content/themes/universe_theme/csdweb.sublime-project"
@@ -1857,10 +1862,6 @@
 			[
 				"conv",
 				"~/Documentos/code/php/csd/csd_web/public/wp-content/themes/universe_theme/csdweb.sublime-project"
-			],
-			[
-				"",
-				"~/Documentos/code/js/trolley_nextjs/trolley.sublime-project"
 			],
 			[
 				"troll",
