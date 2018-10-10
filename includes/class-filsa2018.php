@@ -162,7 +162,11 @@ class Filsa2018 {
 		$this->loader->add_action( 'init', $plugin_admin, 'custom_content' );
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'options_metaboxes');
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'content_metaboxes');
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'colaboradores_metaboxes');
 		$this->loader->add_filter( 'cmb2_show_on', $plugin_admin, 'cmb_show_on_meta_value', 10, 2);
+
+		/* Tamaños de imagen */
+		$this->loader->add_action('after_setup_theme', $plugin_admin, 'image_sizes');
 
 		/* Añadir Menus */
 		$this->loader->add_action( 'init', $plugin_admin, 'menu_positions');

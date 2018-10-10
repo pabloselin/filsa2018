@@ -469,17 +469,46 @@ class Filsa2018_Public {
 			$invitados = get_post_meta($post->ID, 'filsa2018_invitado', true);
 			$invsdata = array();
 			foreach($invitados as $invitado) {
-				$imginv = wp_get_attachment_image_src( $invitado['foto_id'], 'medium' );
+				$imginv_mini = wp_get_attachment_image_src( $invitado['foto_id'], 'invitado_mini' );
+				$imginv_std = wp_get_attachment_image_src( $invitado['foto_id'], 'invitado' );
+				$imginv_medium = wp_get_attachment_image_src( $invitado['foto_id'], 'medium' );
 				$imginv_large = wp_get_attachment_image_src( $invitado['foto_id'], 'large' );
 				$invdata = array();
 				$invdata['bio'] = $invitado['bio'];
 				$invdata['nombre'] = $invitado['nombre'];
-				$invdata['foto'] = $imginv[0];
-				$invdata['foto_grande'] = $imginv_large[0];
+				$invdata['foto_mini'] = $imginv_mini;
+				$invdata['foto'] = $imginv_std;
+				$invdata['foto_medium'] = $imginv;
+				$invdata['foto_grande'] = $imginv_large;
 				$invsdata[] = $invdata;
 			}
 
 			$post_prepared['extrafields'] = $invsdata;
+		}
+
+		if(get_post_meta($post->ID, 'filsa2018_componente', true) == 'colaboradores') {
+			$tipo_funcion = array(
+			'organiza' 	=> 'Organiza',
+			'participa'	=> 'Participa',
+			'apoya'		=> 'Apoya',
+			'patrocina'	=> 'Patrocina',
+			'auspicia'	=> 'Auspicia',
+			'medios'	=> 'Medios Asociados',
+			'colaboran' => 'Colaboran'
+			);
+			$colabsdata = array();
+			foreach($tipo_funcion as $key=>$tipo) {
+				$colabfields = get_post_meta($post->ID, $key . '_colaborador', true);
+				foreach($colabfields as $colabfield) {
+					$imgcolab = wp_get_attachment_image_src( $colabfield['logo_id'], 'medium');
+					$colabdata['logo'] = $imgcolab;
+					$colabdata['nombre'] = $colabfield['nombre'];
+					$colabdata['url'] = $colabfield['web'];
+					$colabsdata[$key][] = $colabdata;
+				}
+			}
+
+			$post_prepared['extrafields'] = $colabsdata;
 		}
 
 		return $post_prepared;

@@ -100,6 +100,11 @@ class Filsa2018_Admin {
 
 	}
 
+	public function image_sizes() {
+		add_image_size( 'invitado', 360 );
+		add_image_size( 'invitado_mini', 36);
+	}
+
 	public function menu_positions() {
 		register_nav_menus( array(
 			'main_menu_filsa2018' 		=> 'Navegación principal FILSA 2018',
@@ -225,7 +230,8 @@ public function content_metaboxes() {
 			'invitados' 		=> __( 'Invitados', 'filsa2018' ),
 			'visitas-guiadas' 	=> __( 'Visitas guiadas', 'filsa2018' ),
 			'archivonoticias' 	=> __( 'Archivo de Noticias', 'filsa2018' ),
-			'expositores'		=> __( 'Expositores', 'filsa2018' )
+			'expositores'		=> __( 'Expositores', 'filsa2018' ),
+			'colaboradores'		=> __( 'Colaboradores', 'filsa2018' )
 		),
 	) );
 
@@ -337,6 +343,69 @@ public function content_metaboxes() {
 		'desc' => 'Stand en que se ubica el expositor (dentro del sector asignado más arriba)',
 		'repeatable' => true
 	) );
+}
+
+public function colaboradores_metaboxes() {
+	$prefix = 'filsa2018';
+
+	$tipo_funcion = array(
+			'organiza' 	=> 'Organiza',
+			'participa'	=> 'Participa',
+			'apoya'		=> 'Apoya',
+			'patrocina'	=> 'Patrocina',
+			'auspicia'	=> 'Auspicia',
+			'medios'	=> 'Medios Asociados',
+			'colaboran' => 'Colaboran'
+		);
+
+	foreach($tipo_funcion as $key=>$tipo) {
+
+		$curcolabox = 'colabox_' . $key;
+
+		$curcolabox = new_cmb2_box(array(
+		'id'			=> $key . 'colaboradores',
+		'title'			=> $tipo,
+		'object_types' 	=> array( 'filsa-2018' ),
+		'show_on'		=> array( 
+									'meta_key' =>  $prefix . '_componente',
+									'meta_value' => 'colaboradores'
+							),
+		'context' 		=> 'normal',
+		'priority' 		=> 'high'
+	));
+
+		$colagroup = $curcolabox->add_field( array(
+			'id' 			=> $key . '_colaborador',
+			'type'			=> 'group',
+			'description'	=> $tipo,
+			'repeatable'	=> true,
+			'sortable'		=> true
+		));
+
+		$curcolabox->add_group_field( $colagroup, array(
+			'name' 	=> 'Nombre',
+			'id'	=> 'nombre',
+			'type'	=> 'text',
+			'desc'	=> 'Nombre colaborador'
+		));
+
+		$curcolabox->add_group_field( $colagroup, array(
+			'name' 	=> 'Logotipo',
+			'id'	=> 'logo',
+			'type'	=> 'file',
+			'desc'	=> 'Logotipo colaborador (jpg o png)'
+		));
+
+		$curcolabox->add_group_field( $colagroup, array(
+			'name'	=> 'Sitio web',
+			'id'	=> 'web',
+			'type'	=> 'text_url',
+			'desc'	=> 'Web colaborador'
+		));
+
+	}
+
+	
 }
 
 public function options_metaboxes() {
