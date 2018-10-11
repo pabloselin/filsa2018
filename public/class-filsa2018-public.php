@@ -172,7 +172,8 @@ class Filsa2018_Public {
 			'filsa2018_facebookid',
 			'filsa2018_instagrampost',
 			'filsa2018_aviso',
-			'filsa2018_showaviso'
+			'filsa2018_showaviso',
+			'filsa2018_colabpage'
 		];
 
 		$params_content = array();

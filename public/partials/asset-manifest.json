@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.e40c25d1.css",
-  "main.css.map": "static/css/main.e40c25d1.css.map",
-  "main.js": "static/js/main.54aad3c8.js",
-  "main.js.map": "static/js/main.54aad3c8.js.map",
+  "main.css": "static/css/main.dc51c308.css",
+  "main.css.map": "static/css/main.dc51c308.css.map",
+  "main.js": "static/js/main.dff5121b.js",
+  "main.js.map": "static/js/main.dff5121b.js.map",
   "static/media/brand-icons.eot": "static/media/brand-icons.13db00b7.eot",
   "static/media/brand-icons.svg": "static/media/brand-icons.a1a749e8.svg",
   "static/media/brand-icons.ttf": "static/media/brand-icons.c5ebe0b3.ttf",
@@ -19,5 +19,9 @@
   "static/media/outline-icons.svg": "static/media/outline-icons.82f60bd0.svg",
   "static/media/outline-icons.ttf": "static/media/outline-icons.ad97afd3.ttf",
   "static/media/outline-icons.woff": "static/media/outline-icons.ef60a4f6.woff",
-  "static/media/outline-icons.woff2": "static/media/outline-icons.cd6c777f.woff2"
+  "static/media/outline-icons.woff2": "static/media/outline-icons.cd6c777f.woff2",
+  "static/media/slick.eot": "static/media/slick.ced611da.eot",
+  "static/media/slick.svg": "static/media/slick.f97e3bbf.svg",
+  "static/media/slick.ttf": "static/media/slick.d41f55a7.ttf",
+  "static/media/slick.woff": "static/media/slick.b7c9e1e4.woff"
 }

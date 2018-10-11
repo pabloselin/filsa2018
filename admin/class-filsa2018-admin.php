@@ -197,6 +197,20 @@ public function selectpage( $field) {
 	return $values;
 }
 
+public function selectpagefilsa( $field) {
+	$args = array(
+		'post_type' => 'filsa-2018',
+		'numberposts' => -1,
+		);
+
+	$items = get_posts($args);
+	$values = array();
+	foreach($items as $item) {
+		$values[$item->ID] = $item->post_title;
+	}
+	return $values;
+}
+
 public function return_idmenuofpositions() {
 	$positions = get_nav_menu_locations();
 	$options = array();
@@ -670,6 +684,16 @@ public function options_metaboxes() {
         'show_option_none' => true,
 		'desc' => __( 'Escoja un término de la taxonomía "Tipos de Evento"', 'filsa_2018' ),
 		'taxonomy' => 'cchl_tipoevento',
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Página donde se subirán los logos de los colaboradores', 'filsa_2018' ),
+		'id' => 'filsa2018_colabpage',
+        'type' => 'select',
+        'show_option_none' => true,
+        'options_cb' => array( $this, 'selectpagefilsa'),
+		'desc' => __( 'Escoja una página de FILSA 2019', 'filsa_2018' ),
+		
 	) );
 
 	
