@@ -149,6 +149,8 @@ class Filsa2018_Public {
 		$params = [
 			'filsa2018_cabecera_escritorio',
 			'filsa2018_cabecera_movil',
+			'filsa2018_cabecera_webm',
+			'filsa2018_cabecera_mp4',
 			'filsa2018_placeholder',
 			'filsa2018_map',
 			'filsa2018_menu',

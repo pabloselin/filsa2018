@@ -468,6 +468,21 @@ public function options_metaboxes() {
 	) );
 
 	$cmb_options->add_field( array(
+		'name' => __( 'Cabecera video .mp4', 'filsa_2018' ),
+		'id' => 'filsa2018_cabecera_mp4',
+		'type' => 'file',
+		'desc' => __( 'Video mp4 para web', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Cabecera video webm', 'filsa_2018' ),
+		'id' => 'filsa2018_cabecera_webm',
+		'type' => 'file',
+		'desc' => __( 'Video webm para web', 'filsa_2018' ),
+	) );
+
+
+	$cmb_options->add_field( array(
 		'name' => __( 'Imagen por defecto para redes sociales', 'filsa_2018' ),
 		'id' => 'filsa2018_placeholder',
 		'type' => 'file',
