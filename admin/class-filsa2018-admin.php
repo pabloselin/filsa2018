@@ -103,6 +103,7 @@ class Filsa2018_Admin {
 	public function image_sizes() {
 		add_image_size( 'invitado', 360 );
 		add_image_size( 'invitado_mini', 36);
+		add_image_size( 'galeria', 1024, 700);
 	}
 
 	public function menu_positions() {
