@@ -522,8 +522,13 @@ class Filsa2018_Public {
 			foreach($galerias as $key=>$galeria) {
 				$galdata[$key]['nombre'] = $galeria['galname'];
 				foreach((array) $galeria['imagenes'] as $imagen_id => $imagen_url) {
-					$galsrc = wp_get_attachment_image_src( $imagen_id, 'large' );
-					$galdata[$key]['imagenes'][] = $galsrc;
+					$galsrc_lg = wp_get_attachment_image_src( $imagen_id, 'large' );
+					$galsrc_th = wp_get_attachment_image_src( $imagen_id, 'thumbnail' );
+					$galsrc_md = wp_get_attachment_image_src( $imagen_id, 'medium' );
+					$galdata[$key]['imagenes'][$imagen_id]['large'] = $galsrc_lg;
+					$galdata[$key]['imagenes'][$imagen_id]['thumbnail'] = $galsrc_th;
+					$galdata[$key]['imagenes'][$imagen_id]['medium'] = $galsrc_md;
+					$galdata[$key]['imagenes'][$imagen_id]['title'] = get_the_title($imagen_id);
 				}
 			}
 			$post_prepared['extrafields'] = $galdata;
