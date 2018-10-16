@@ -268,7 +268,7 @@ class Filsa2018_Public {
 		//Almacentar url formulario
 		$events_content['formurl'] = $this->get_cmb2_option($filsa . '_formurl');
 		//Almacenar eventos
-		$events_content['eventos'] = $this->get_events();
+		$events_content['eventos'] = $this->get_events(false);
 
 		$events_transient = set_transient('filsa2018eventos', $events_content, 3600);
 
@@ -361,11 +361,7 @@ class Filsa2018_Public {
 
 	public function get_events( $visitas = false ) {
 		
-		if(WP_ENV == 'development') {
-			$term = 'filsa-2017';
-		} else {
-			$term = 'filsa-2018';
-		}
+		$term = 'filsa-2018';
 
 		$args = array(
 			'post_type' => 'tribe_events',
@@ -396,7 +392,13 @@ class Filsa2018_Public {
 					'taxonomy' => 'ferias',
 					'terms' => $term,
 					'field' => 'slug'
-				)
+				),
+				array(
+					'taxonomy' => 'cchl_tipoevento',
+					'terms' => 'visitas-guiadas',
+					'field' => 'slug',
+					'operator' => 'NOT IN'
+					)
 			);
 		}
 
@@ -512,6 +514,19 @@ class Filsa2018_Public {
 			}
 
 			$post_prepared['extrafields'] = $colabsdata;
+		}
+
+		if(get_post_meta($post->ID, 'filsa2018_componente', true) == 'galeria') {
+			$galerias = get_post_meta($post->ID, 'galeria_grupo', true);
+			$galdata = array();
+			foreach($galerias as $key=>$galeria) {
+				$galdata[$key]['nombre'] = $galeria['galname'];
+				foreach((array) $galeria['imagenes'] as $imagen_id => $imagen_url) {
+					$galsrc = wp_get_attachment_image_src( $imagen_id, 'large' );
+					$galdata[$key]['imagenes'][] = $galsrc;
+				}
+			}
+			$post_prepared['extrafields'] = $galdata;
 		}
 
 		return $post_prepared;
