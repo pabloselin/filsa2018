@@ -247,7 +247,8 @@ class Filsa2018_Admin {
 				'archivonoticias' 	=> __( 'Archivo de Noticias', 'filsa2018' ),
 				'expositores'		=> __( 'Expositores', 'filsa2018' ),
 				'colaboradores'		=> __( 'Colaboradores', 'filsa2018' ),
-				'galeria'			=> __( 'Galería de Imágenes', 'filsa2018')
+				'galeria'			=> __( 'Galería de Imágenes', 'filsa2018'),
+				'redes'				=> __( 'Redes Sociales', 'filsa2018')
 			),
 		) );
 
@@ -268,7 +269,9 @@ class Filsa2018_Admin {
 			'type'			=> 'group',
 			'description'	=> 'Información invitado/a',
 			'repeatable'	=> true,
-			'sortable'		=> true
+			'options'		=> array(
+				'sortable'		=> true
+			)
 		));
 
 		$invitados->add_group_field( $fields_invitados, array(
@@ -395,7 +398,9 @@ class Filsa2018_Admin {
 				'type'			=> 'group',
 				'description'	=> $tipo,
 				'repeatable'	=> true,
-				'sortable'		=> true
+				'options'		=> array(
+					'sortable'		=> true
+				)
 			));
 
 			$curcolabox->add_group_field( $colagroup, array(

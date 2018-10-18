@@ -175,7 +175,9 @@ class Filsa2018_Public {
 			'filsa2018_instagrampost',
 			'filsa2018_aviso',
 			'filsa2018_showaviso',
-			'filsa2018_colabpage'
+			'filsa2018_colabpage',
+			'filsa2018_orgs',
+			'filsa2018_orgcamara'
 		];
 
 		$params_content = array();
@@ -569,24 +571,67 @@ class Filsa2018_Public {
 
 	public function prepare_eventinfo($event) {
 
+		$orgcamara = explode(',', $this->get_cmb2_option('filsa2018_orgcamara'));
+		$orgdestacado = explode(',', $this->get_cmb2_option('filsa2018_orgs'));
+
+		$organizers = tribe_get_organizer_ids($event->ID);
+
+		$organizacamara = false;
+		$organizaperu = false;
+		$linkinvitacion = false;
+
+		foreach($organizers as $organizer) {
+			if(in_array($organizer, $orgcamara)) {
+				$organizacamara = true;
+			}
+			if(in_array($organizer, $orgdestacado)) {
+				$organizaperu = true;
+			}
+		}
+
+
+
 		$event_prepared = array(
-			'id'			=> $event->ID,
-			'slug'			=> $event->post_name,
-			'daykey'		=> tribe_get_start_date( $event->ID, false, 'Y-m-d'),
-			'startday' 		=> tribe_get_start_date( $event->ID, false, 'l j F'),
-			'startdate' 	=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
-			'enddate' 		=> tribe_get_end_date($event->ID, false, 'G:i'),
-			'tipo_eventos' 	=> $this->termnames(get_the_terms($event->ID, 'cchl_tipoevento')),
-			'tema_eventos'	=> $this->termnames(get_the_terms($event->ID, 'cchl_temaevento')),
-			'cursos'		=> $this->termnames(get_the_terms($event->ID, 'cursos')),
-			'organizadores' => cchl_organizer_names( $event->ID ),
-			'evento_caduco'	=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
-			'content'		=> apply_filters( 'the_content', $event->post_content),
-			'lugar'			=> tribe_get_venue( $event->ID),
-			'title'			=> $event->post_title,
-			'cupos'			=> get_post_meta($event->ID, '_cmb_cupos', true),
-			'cerrado'		=> get_post_meta($event->ID, '_cmb_cerrado', true)
+			'id'				=> $event->ID,
+			'slug'				=> $event->post_name,
+			'daykey'			=> tribe_get_start_date( $event->ID, false, 'Y-m-d'),
+			'startday' 			=> tribe_get_start_date( $event->ID, false, 'l j F'),
+			'startdate' 		=> tribe_event_is_all_day( $event->ID) ? 'Todo el día' : tribe_get_start_date($event->ID, false, 'G:i'),
+			'enddate' 			=> tribe_get_end_date($event->ID, false, 'G:i'),
+			'tipo_eventos' 		=> $this->termnames(get_the_terms($event->ID, 'cchl_tipoevento')),
+			'tema_eventos'		=> $this->termnames(get_the_terms($event->ID, 'cchl_temaevento')),
+			'cursos'			=> $this->termnames(get_the_terms($event->ID, 'cursos')),
+			'organizadores' 	=> cchl_organizer_names( $event->ID ),
+			'evento_caduco'		=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
+			'content'			=> apply_filters( 'the_content', $event->post_content),
+			'lugar'				=> tribe_get_venue( $event->ID),
+			'title'				=> $event->post_title,
+			'cupos'				=> get_post_meta($event->ID, '_cmb_cupos', true),
+			'cerrado'			=> get_post_meta($event->ID, '_cmb_cerrado', true),
+			'organizacamara'	=> $organizacamara,
+			'organizaperu'		=> $organizaperu
 		);
+
+		if($organizacamara || $organizaperu) {
+			if(function_exists('cchl_frontinv')) {
+				$inicio = tribe_get_start_date($event->ID, false, 'G:i');
+				$fin = tribe_get_end_date($event->ID, false, 'G:i');
+				$hora = ($inicio !== $fin) ? $inicio . ' - ' . $fin : $inicio;
+
+				$data = array(
+					'id'			=> $event->ID,
+					'title' 		=> get_the_title( $event->ID ),
+					'dia' 			=> tribe_get_start_date( $event->ID, false ),
+					'hora' 			=> $hora,
+					'lugar'			=> tribe_get_venue( $event->ID ),
+					'organizador'	=> cchl_organizer_names( $event->ID),
+					'descripcion'   => limitar_palabras( strip_tags($event->post_content), 50)
+					);
+
+				$invurl = cchl_frontinv($data);
+				$event_prepared['invitacion'] = $invurl;
+			}
+		}
 
 		return $event_prepared;
 	}
