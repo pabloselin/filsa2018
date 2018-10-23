@@ -248,7 +248,9 @@ class Filsa2018_Admin {
 				'expositores'		=> __( 'Expositores', 'filsa2018' ),
 				'colaboradores'		=> __( 'Colaboradores', 'filsa2018' ),
 				'galeria'			=> __( 'Galería de Imágenes', 'filsa2018'),
-				'redes'				=> __( 'Redes Sociales', 'filsa2018')
+				'redes'				=> __( 'Redes Sociales', 'filsa2018'),
+				'jornadas'			=> __( 'Jornadas Profesionales', 'filsa2018'),
+				'firmas'			=> __( 'Firma de autores', 'filsa2018'),
 			),
 		) );
 

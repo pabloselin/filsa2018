@@ -118,6 +118,14 @@ class Filsa2018_Public {
 		));
 	}
 
+	public function rest_filsa2018jornadas() {
+		register_rest_route( 'filsa2018/v1/', '/jornadas/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018_jornadas')
+		));
+	}
+
+
 	public function rest_filsa2018eventslug() {
 		register_rest_route( 'filsa2018/v1/', '/events/(?P<slug>[a-zA-Z0-9-]+)', array(
 			'methods' 	=> 'GET',
@@ -232,11 +240,8 @@ class Filsa2018_Public {
 
 		//Almacenar lista de dias activos
 
-		if(WP_ENV == 'development') {
-			$filsa = 'filsa2017';
-		} else {
-			$filsa = 'filsa2018';
-		}
+		$filsa = 'filsa2018';
+		
 
 		$inicio = $this->get_cmb2_option($filsa .'_inicio');
 		$fin = $this->get_cmb2_option($filsa .'_fin');
@@ -331,6 +336,58 @@ class Filsa2018_Public {
 		return $events_content;
 	}
 
+	public function filsa2018_jornadas( WP_REST_Request $request ) {
+		return array(
+			'edicion' => $this->filsa2018_event_term_transient('jornada-de-edicion'),
+			'fomento' => $this->filsa2018_event_term_transient('jornada-de-fomento-lector-y-educacion'),
+			'ilustracion' => $this->filsa2018_event_term_transient('jornada-de-ilustracion')
+		);
+	}
+
+	public function filsa2018_event_term_transient($term) {
+		$cached_events = get_transient('filsa2018' . $term);
+
+		if( false !== $cached_events) {
+			return $cached_events;
+		}
+
+		$events_content = [];
+
+		//Almacenar lista de dias activos
+
+		$filsa = 'filsa2018';
+		
+
+		$inicio = $this->get_cmb2_option($filsa .'_inicio');
+		$fin = $this->get_cmb2_option($filsa .'_fin');
+
+
+		if(isset($inicio) && isset($fin)) {
+			$iniciofilsa = new DateTime( $inicio );
+			$finfilsa = new DateTime( $fin );
+			$finfilsa = $finfilsa->modify('+1 day');
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+			foreach($period as $day) {
+				$ndia = date_i18n('j' , $day->format('U'));
+				$mes = date_i18n('F' , $day->format('U'));
+				$visitas = 'active';
+				
+				$events_content['diasjornadas'][$mes][] = [$this->formatDay($day), $visitas];
+				
+			}
+
+		}
+
+		//Almacenar eventos
+		$events_content['eventos'] = $this->get_events(false, $term);
+
+		$events_transient = set_transient('filsa2018' . $term, $events_content, 3600);
+
+		return $events_content;
+	}
+
 	public function formatDay( $day ) {
 		$dia = strtotime($day->format('Y-m-d'));
 		setlocale(LC_ALL, 'es_ES');
@@ -361,7 +418,7 @@ class Filsa2018_Public {
 		return $branch;
 	}
 
-	public function get_events( $visitas = false ) {
+	public function get_events( $visitas = false, $customevents = false ) {
 		
 		$term = 'filsa-2018';
 
@@ -387,6 +444,19 @@ class Filsa2018_Public {
 					'terms' => 'visitas-guiadas',
 					'field' => 'slug'
 				),
+			);
+		} elseif($customevents != false) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'ferias',
+					'terms' => $term,
+					'field' => 'slug'
+				),
+				array(
+					'taxonomy' => 'cchl_tipoevento',
+					'terms' => $customevents,
+					'field' => 'slug'
+					)
 			);
 		} else {
 			$args['tax_query'] = array(
