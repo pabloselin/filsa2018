@@ -12,6 +12,9 @@
 		},
 		{
 			"path": "/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/event-invitations"
+		},
+		{
+			"path": "/home/donhilo/Documentos/code/php/cchl/public/algolia_importer"
 		}
 	]
 }
