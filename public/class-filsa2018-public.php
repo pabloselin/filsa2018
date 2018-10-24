@@ -674,6 +674,7 @@ class Filsa2018_Public {
 			'organizadores' 	=> cchl_organizer_names( $event->ID ),
 			'evento_caduco'		=> tribe_is_past_event( $event->ID ) ? 'past' : 'available',
 			'content'			=> apply_filters( 'the_content', $event->post_content),
+			'description'		=> strip_tags($event->post_content),
 			'lugar'				=> tribe_get_venue( $event->ID),
 			'title'				=> $event->post_title,
 			'cupos'				=> get_post_meta($event->ID, '_cmb_cupos', true),
