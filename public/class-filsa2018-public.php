@@ -208,6 +208,16 @@ class Filsa2018_Public {
 		//Almacenar contenidos FILSA-2018
 		$params_content['filsa2018_contents'] = $this->get_filsa2018_contents();
 		$params_content['filsa2018_noticias'] = $this->get_filsa2018_news();
+		$today = new DateTime( 'today' );
+		$yesterday = new DateTime( 'yesterday' );
+		$tomorrow = new DateTime('tomorrow');
+
+		$todaystr = $today->format('Y-m-d');
+		$yesterdaystr = $yesterday->format('Y-m-d');
+		$tomorrowstr = $tomorrow->format('Y-m-d');
+		$params_content['filsa2018_eventosrapidos'] = array(
+			$todaystr => $this->get_dayevents($todaystr), $yesterdaystr => $this->get_dayevents($yesterdaystr), $tomorrowstr => $this->get_dayevents($tomorrowstr)
+		);
 
 
 		$params_transient = set_transient('filsa2018params', $params_content, 3600);
@@ -218,6 +228,46 @@ class Filsa2018_Public {
 
 
 		return get_transient('filsa2018params');
+	}
+
+	public function get_dayevents($day) {
+		$args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'tribe_events',
+		'orderby' => 'meta_value',
+		'meta_key' => '_EventStartDate',
+		'meta_type' => 'DATETIME',
+		'order' => 'ASC',
+		'meta_query' => array(
+			array(
+				'key' => '_EventStartDate',
+				'type' => 'DATE',
+				'value' => $day
+				)
+			),
+
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'ferias',
+				'field' => 'slug',
+				'terms' => 'filsa-2018'
+				),
+			array(
+				'taxonomy' => 'cchl_tipoevento',
+				'terms' => 'visitas-guiadas',
+				'field' => 'slug',
+				'operator' => 'NOT IN'
+				)
+			)
+		);
+		
+		$events = get_posts($args);
+		$prepared_events = array();
+		foreach($events as $event) {
+			$prepared_events[] = $this->prepare_eventinfo($event);
+		}
+
+		return $prepared_events;
 	}
 
 	public function output_parameters() {
