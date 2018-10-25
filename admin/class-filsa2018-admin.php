@@ -366,6 +366,27 @@ class Filsa2018_Admin {
 		) );
 	}
 
+	public function expositores_metaboxes() {
+		$prefix = 'filsa2018';
+		$expologos = new_cmb2_box(array(
+				'id'			=> $key . 'colaboradores',
+				'title'			=> $tipo,
+				'object_types' 	=> array( 'filsa-2018' ),
+				'show_on'		=> array( 
+					'meta_key' =>  $prefix . '_componente',
+					'meta_value' => 'expositores'
+				),
+				'context' 		=> 'normal',
+				'priority' 		=> 'high'
+			));
+		$expologos->add_field( array(
+			'name' => 'Expositores Logos',
+			'id' => $prefix . '_logosexpositores',
+			'description' => 'Sube aquí los logos de los expositores con el mismo nombre que el que tiene en el sistema de búsqueda. (en formato .png)',
+			'type' => 'file'
+		));
+	}
+
 	public function colaboradores_metaboxes() {
 		$prefix = 'filsa2018';
 

@@ -164,6 +164,7 @@ class Filsa2018 {
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'content_metaboxes');
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'colaboradores_metaboxes');
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'galeria_metaboxes');
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'expositores_metaboxes');
 		$this->loader->add_filter( 'cmb2_show_on', $plugin_admin, 'cmb_show_on_meta_value', 10, 2);
 
 		/* Tamaños de imagen */

@@ -656,6 +656,20 @@ class Filsa2018_Public {
 			$post_prepared['extrafields'] = $galdata;
 		}
 
+		if(get_post_meta($post->ID, 'filsa2018_componente', true) == 'expositores') {
+			$args = array(
+				'post_type' => 'attachment',
+				'post_parent' => $post->ID,
+				'numberposts' => -1
+			);
+			$logosimgs = array();
+			$logos = get_children( $args );
+			foreach($logos as $logo) {
+				$logosimgs[] = wp_get_attachment_image_src( $logo->ID, 'full' );
+			}
+			$post_prepared['extrafields'] = $logosimgs;	
+		}
+
 		return $post_prepared;
 	}
 
