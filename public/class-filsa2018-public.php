@@ -260,7 +260,7 @@ class Filsa2018_Public {
 				)
 			)
 		);
-		
+
 		$events = get_posts($args);
 		$prepared_events = array();
 		foreach($events as $event) {
@@ -320,7 +320,7 @@ class Filsa2018_Public {
 		//Almacenar lista de cursos
 		$events_content['cursos'] = get_terms( array('taxonomy' => 'cursos') );
 		//Almacenar tipos de eventos
-		$events_content['tipoevento'] = $this->filsa2018_transientterms($filsa . '_taxfilsavisitas', 'cchl_tipoevento');
+		$events_content['tipoevento'] = $this->filsa2018_transientterms($filsa . '_taxfilsa', 'ferias');
 
 		//Almacentar url formulario
 		$events_content['formurl'] = $this->get_cmb2_option($filsa . '_formurl');
@@ -868,7 +868,7 @@ class Filsa2018_Public {
 		$args['tax_query'] = array(
 			array(
 				'taxonomy' => 'ferias',
-				'terms' => array($this->get_cmb2_option('filsa2018_taxfilsa')),
+				'terms' => 'filsa-2018',
 				'field' => 'slug'
 			)
 		);
