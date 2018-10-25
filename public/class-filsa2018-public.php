@@ -211,12 +211,14 @@ class Filsa2018_Public {
 		$today = new DateTime( 'today' );
 		$yesterday = new DateTime( 'yesterday' );
 		$tomorrow = new DateTime('tomorrow');
+		$ptomorrow = new DateTime('tomorrow + 1day');
 
 		$todaystr = $today->format('Y-m-d');
 		$yesterdaystr = $yesterday->format('Y-m-d');
 		$tomorrowstr = $tomorrow->format('Y-m-d');
+		$ptomorrowstr = $ptomorrow->format('Y-m-d');
 		$params_content['filsa2018_eventosrapidos'] = array(
-			$todaystr => $this->get_dayevents($todaystr), $yesterdaystr => $this->get_dayevents($yesterdaystr), $tomorrowstr => $this->get_dayevents($tomorrowstr)
+			$todaystr => $this->get_dayevents($todaystr), $yesterdaystr => $this->get_dayevents($yesterdaystr), $tomorrowstr => $this->get_dayevents($tomorrowstr), $ptomorrowstr => $this->get_dayevents($ptomorrowstr)
 		);
 
 
