@@ -691,8 +691,29 @@ class Filsa2018_Admin {
 	$cmb_options->add_field( array(
 		'name' => __( 'Post de Instagram', 'filsa_2018' ),
 		'id' => 'filsa2018_instagrampost',
-		'type' => 'text_url',
-		'desc' => __( 'URL del último post de Instagram para FILSA 2018', 'filsa_2018' ),
+		'type' => 'text',
+		'desc' => __( 'URL de post de Instagram', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Album de Flickr', 'filsa_2018' ),
+		'id' => 'filsa2018_flickralbum',
+		'type' => 'text',
+		'desc' => __( 'URL de album de Flickr', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Video de Youtube', 'filsa_2018' ),
+		'id' => 'filsa2018_ytmain',
+		'type' => 'text',
+		'desc' => __( 'ID de video de Youtube', 'filsa_2018' ),
+	) );
+
+	$cmb_options->add_field( array(
+		'name' => __( 'Videos extra de Youtube', 'filsa_2018' ),
+		'id' => 'filsa2018_ytextra',
+		'type' => 'text',
+		'desc' => __( 'ID de videos extras de Youtube (separados por coma)', 'filsa_2018' ),
 	) );
 
 	$cmb_options->add_field( array(
