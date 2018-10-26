@@ -823,6 +823,38 @@ class Filsa2018_Admin {
 
 	}
 
+	if($iniciooption && $finoption) {
+
+		$cmb_options->add_field( array(
+			'name' => 'Seleccionar días para Firma de autores',
+			'desc' => '',
+			'type' => 'title',
+			'id' => 'fadays_title'
+		));
+
+		$iniciofilsa = new DateTime( $iniciooption );
+		$finfilsa = new DateTime( $finoption );
+		$finfilsa = $finfilsa->modify('+1 day');
+		$interval = DateInterval::createFromDateString('1 day');
+		$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+		foreach($period as $day) {
+
+			$dia = date_i18n('l' , $day->format('U'));
+			$ndia = date_i18n('j' , $day->format('U'));
+			$mes = date_i18n('F' , $day->format('U'));
+
+			$cmb_options->add_field( array(
+				'name' => 'Activar '  . $dia . ' ' . $ndia . ' ' . $mes,
+				'id' => 'filsa2018diafirma_' . $ndia . '-' . $mes,
+				'type' => 'checkbox',
+				'desc' => ''
+			) );
+		}
+
+
+	}
+
 	$cmb_options->add_field( array(
 		'name' => 'Programa cultural y visitas guiadas',
 		'desc' => '',

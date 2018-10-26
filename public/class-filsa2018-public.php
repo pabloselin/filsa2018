@@ -118,6 +118,13 @@ class Filsa2018_Public {
 		));
 	}
 
+	public function rest_filsa2018firmas() {
+		register_rest_route( 'filsa2018/v1/', '/firma-de-autores/', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'filsa2018_firmas_transients')
+		));
+	}
+
 	public function rest_filsa2018jornadas() {
 		register_rest_route( 'filsa2018/v1/', '/jornadas/', array(
 			'methods' => 'GET',
@@ -388,6 +395,50 @@ class Filsa2018_Public {
 		return $events_content;
 	}
 
+	public function filsa2018_firmas_transients( WP_REST_Request $request ) {
+		$cached_events = get_transient('filsa2018firmas');
+
+		if( false !== $cached_events) {
+			return $cached_events;
+		}
+
+		$events_content = [];
+
+		//Almacenar lista de dias activos
+
+		
+		$filsa = 'filsa2018';
+
+		$inicio = $this->get_cmb2_option($filsa .'_inicio');
+		$fin = $this->get_cmb2_option($filsa .'_fin');
+
+
+		if(isset($inicio) && isset($fin)) {
+			$iniciofilsa = new DateTime( $inicio );
+			$finfilsa = new DateTime( $fin );
+			$finfilsa = $finfilsa->modify('+1 day');
+			$interval = DateInterval::createFromDateString('1 day');
+			$period = new DatePeriod($iniciofilsa, $interval, $finfilsa);
+
+			foreach($period as $day) {
+				$ndia = date_i18n('j' , $day->format('U'));
+				$mes = date_i18n('F' , $day->format('U'));
+				$visitas = ($this->get_cmb2_option($filsa .'diafirma_' . $ndia . '-' . $mes) == true) ? 'active' : 'disabled';
+				
+				$events_content['diasfirmas'][$mes][] = [$this->formatDay($day), $visitas];
+				
+			}
+
+		}
+
+		//Almacenar eventos
+		$events_content['eventos'] = $this->get_events(false, 'firma-de-autores');
+
+		$events_transient = set_transient('filsa2018firmas', $events_content, 3600);
+
+		return $events_content;
+	}
+
 	public function filsa2018_jornadas( WP_REST_Request $request ) {
 		return array(
 			'edicion' => $this->filsa2018_event_term_transient('jornada-de-edicion'),
@@ -519,7 +570,7 @@ class Filsa2018_Public {
 				),
 				array(
 					'taxonomy' => 'cchl_tipoevento',
-					'terms' => 'visitas-guiadas',
+					'terms' => array('visitas-guiadas', 'firma-de-autores'),
 					'field' => 'slug',
 					'operator' => 'NOT IN'
 					)
