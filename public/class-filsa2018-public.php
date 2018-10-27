@@ -768,7 +768,7 @@ class Filsa2018_Public {
 
 		$organizacamara = false;
 		$organizaperu = false;
-		$linkinvitacion = false;
+		$cineenfilsa = false;
 
 		foreach($organizers as $organizer) {
 			if(in_array($organizer, $orgcamara)) {
@@ -777,6 +777,11 @@ class Filsa2018_Public {
 			if(in_array($organizer, $orgdestacado)) {
 				$organizaperu = true;
 			}
+		}
+
+		if(is_object_in_term( $event->ID, 'cchl_tipoevento', 'cine' ))
+		{
+			$cineenfilsa = true;
 		}
 
 
@@ -803,7 +808,7 @@ class Filsa2018_Public {
 			'organizaperu'		=> $organizaperu
 		);
 
-		if($organizacamara || $organizaperu) {
+		if($organizacamara || $organizaperu || $cineenfilsa) {
 			if(function_exists('cchl_frontinv')) {
 				$inicio = tribe_get_start_date($event->ID, false, 'G:i');
 				$fin = tribe_get_end_date($event->ID, false, 'G:i');
