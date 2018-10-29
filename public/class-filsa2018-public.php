@@ -881,7 +881,7 @@ class Filsa2018_Public {
 				$typeterms = get_the_terms( $vgitem, 'cchl_tipoevento' );	
 
 				foreach($typeterms as $typeterm) {
-					if($typeterm->slug != $vg)
+					if($typeterm->slug != $vg && $typeterm->slug != 'visitas-guiadas' && $typeterm->slug != 'firma-de-autores')
 						$vgtermids[$typeterm->term_id] = $typeterm->name;
 				}
 			}
@@ -931,38 +931,6 @@ class Filsa2018_Public {
 	    if($ubicaciones):
 	        return $ubicaciones;
 	    endif;
-	}  
-
-	public function filsa2018_tipostransients() {	
-
-		$args = array(
-			'post_type' => 'tribe_events',
-			'numberposts' => -1,
-			'post_status' => 'publish'
-		);
-		$args['tax_query'] = array(
-			array(
-				'taxonomy' => 'ferias',
-				'terms' => 'filsa-2018',
-				'field' => 'slug'
-			)
-		);
-		$eventos = get_posts($args);
-		$tipevarr = array();
-		foreach($eventos as $evento) {
-			$evterms = get_the_terms( $evento->ID, 'cchl_tipoevento' );
-			foreach($evterms as $evterm) {
-				if($evterm->slug != $this->get_cmb2_option('filsa2018_taxfilsavisitas')):
-					$tipevarr[] = $evterm->term_id;
-				endif;
-			}
-		}
-
-		$uniquetypes = array_unique($tipevarr);
-		set_transient( 'filsa2018_tiposeventos', $uniquetypes, 12 * HOUR_IN_SECONDS );
-
-		return $uniquetypes;
-
 	}
 
 	/* Fin de ajuste*/
