@@ -862,7 +862,7 @@ class Filsa2018_Public {
 		return $names;
 	}
 
-	/* Ajustar para esta versión */
+
 	public function filsa2018_transientterms($option, $taxonomy = 'cchl_tipoevento') {
 			$vg = $this->get_cmb2_option($option);
 			$vgtermids = array();
@@ -881,7 +881,7 @@ class Filsa2018_Public {
 			);
 			$vgitems = get_posts($visitasargs);
 			foreach($vgitems as $vgitem) {
-				$typeterms = get_the_terms( $vgitem, 'cchl_tipoevento' );	
+				$typeterms = get_the_terms( $vgitem->ID,  'cchl_tipoevento' );	
 
 				foreach($typeterms as $typeterm) {
 					if($typeterm->slug != $vg && $typeterm->slug != 'visitas-guiadas' && $typeterm->slug != 'firma-de-autores')
