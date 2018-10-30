@@ -763,13 +763,15 @@ class Filsa2018_Public {
 
 		$orgcamara = explode(',', $this->get_cmb2_option('filsa2018_orgcamara'));
 		$orgdestacado = explode(',', $this->get_cmb2_option('filsa2018_orgs'));
+		$orgsinvs = explode(',', $this->get_cmb2_option('filsa2018_orgsinvs'));
 
 		$organizers = tribe_get_organizer_ids($event->ID);
 
 		$organizacamara = false;
 		$organizaperu = false;
 		$cineenfilsa = false;
-
+		$makeinv = false;
+		
 		foreach($organizers as $organizer) {
 			if(in_array($organizer, $orgcamara)) {
 				$organizacamara = true;
@@ -777,14 +779,15 @@ class Filsa2018_Public {
 			if(in_array($organizer, $orgdestacado)) {
 				$organizaperu = true;
 			}
+			if(in_array($organizer, $orgsinvs)) {
+				$makeinv = true;
+			}
 		}
 
 		if(is_object_in_term( $event->ID, 'cchl_tipoevento', 'cine' ))
 		{
 			$cineenfilsa = true;
 		}
-
-
 
 		$event_prepared = array(
 			'id'				=> $event->ID,
@@ -808,7 +811,7 @@ class Filsa2018_Public {
 			'organizaperu'		=> $organizaperu
 		);
 
-		if($organizacamara || $organizaperu || $cineenfilsa) {
+		if($organizacamara || $organizaperu || $cineenfilsa || $makeinv) {
 			if(function_exists('cchl_frontinv')) {
 				$inicio = tribe_get_start_date($event->ID, false, 'G:i');
 				$fin = tribe_get_end_date($event->ID, false, 'G:i');

@@ -898,6 +898,13 @@ class Filsa2018_Admin {
 	) );
 
 	$cmb_options->add_field( array(
+		'name' => __( 'Organizadores con invitación gratuita', 'filsa_2018' ),
+		'id' => 'filsa2018_orgsinvs',
+		'type' => 'text',
+		'desc' => __( 'IDs de organizadores en los que se generará una invitación descargable (separados por coma)', 'filsa_2018' )
+	) );
+
+	$cmb_options->add_field( array(
 		'name' => __( 'Ícono organizadores destacados', 'filsa_2018' ),
 		'id' => 'filsa2018_orgicon',
 		'type' => 'file',
