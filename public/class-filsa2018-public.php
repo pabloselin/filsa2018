@@ -224,9 +224,9 @@ class Filsa2018_Public {
 		$ptomorrow = new DateTime('tomorrow + 1day');
 
 		$todaystr = $today->format('Y-m-d');
-		$yesterdaystr = $yesterday->format('Y-m-d');
-		$tomorrowstr = $tomorrow->format('Y-m-d');
-		$ptomorrowstr = $ptomorrow->format('Y-m-d');
+		$yesterdaystr = $yesterday->format('Y-m-j');
+		$tomorrowstr = $tomorrow->format('Y-m-j');
+		$ptomorrowstr = $ptomorrow->format('Y-m-j');
 		$params_content['filsa2018_eventosrapidos'] = array(
 			$todaystr => $this->get_dayevents($todaystr), $yesterdaystr => $this->get_dayevents($yesterdaystr), $tomorrowstr => $this->get_dayevents($tomorrowstr), $ptomorrowstr => $this->get_dayevents($ptomorrowstr)
 		);
