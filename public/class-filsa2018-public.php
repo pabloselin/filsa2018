@@ -223,7 +223,7 @@ class Filsa2018_Public {
 		$tomorrow = new DateTime('tomorrow');
 		$ptomorrow = new DateTime('tomorrow + 1day');
 
-		$todaystr = $today->format('Y-m-d');
+		$todaystr = $today->format('Y-m-j');
 		$yesterdaystr = $yesterday->format('Y-m-j');
 		$tomorrowstr = $tomorrow->format('Y-m-j');
 		$ptomorrowstr = $ptomorrow->format('Y-m-j');
