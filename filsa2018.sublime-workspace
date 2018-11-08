@@ -385,6 +385,14 @@
 			}
 		},
 		{
+			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/utils/trackPage.js",
+			"settings":
+			{
+				"buffer_size": 292,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/ArchiveNoticias.js",
 			"settings":
 			{
@@ -396,7 +404,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Noticia.js",
 			"settings":
 			{
-				"buffer_size": 738,
+				"buffer_size": 737,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -405,7 +413,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Fecha.js",
 			"settings":
 			{
-				"buffer_size": 591,
+				"buffer_size": 585,
 				"encoding": "UTF-8",
 				"line_ending": "Unix",
 				"name": "import React, { Component } from \"react\";"
@@ -432,8 +440,16 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/App.js",
 			"settings":
 			{
-				"buffer_size": 9584,
+				"buffer_size": 9616,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/SingleNoticia.js",
+			"settings":
+			{
+				"buffer_size": 2389,
 				"line_ending": "Unix"
 			}
 		},
@@ -441,7 +457,7 @@
 			"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Home.js",
 			"settings":
 			{
-				"buffer_size": 4184,
+				"buffer_size": 4245,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -891,7 +907,7 @@
 	],
 	"find":
 	{
-		"height": 41.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -908,6 +924,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"content",
 			"otrasnoti",
 			"transientt",
 			"var_dump",
@@ -1034,8 +1051,7 @@
 			"visitas",
 			"returndate",
 			"setstate",
-			"_cmb_cerrado",
-			"/>"
+			"_cmb_cerrado"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1058,7 +1074,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1074,8 +1090,8 @@
 						"selection":
 						[
 							[
-								4745,
-								4745
+								4848,
+								4848
 							]
 						],
 						"settings":
@@ -1084,14 +1100,42 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3783.0,
+						"translation.y": 1785.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/utils/trackPage.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								292,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/ArchiveNoticias.js",
 					"semi_transient": true,
 					"settings":
@@ -1113,27 +1157,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 63.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Noticia.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 738,
+						"buffer_size": 737,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								178,
-								178
+								737,
+								737
 							]
 						],
 						"settings":
@@ -1145,30 +1189,31 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Fecha.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 591,
+						"buffer_size": 585,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								590,
-								590
+								103,
+								103
 							]
 						],
 						"settings":
 						{
 							"auto_name": "import React, { Component } from \"react\";",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1178,7 +1223,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/package.json",
 					"semi_transient": false,
 					"settings":
@@ -1204,11 +1249,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "/home/donhilo/Documentos/code/php/cchl/public/wp-content/plugins/event-invitations/event-invitations.php",
 					"semi_transient": false,
 					"settings":
@@ -1233,24 +1278,24 @@
 						"translation.y": 519.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9584,
+						"buffer_size": 9616,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6113,
-								6113
+								800,
+								764
 							]
 						],
 						"settings":
@@ -1260,27 +1305,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4072.0,
+						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Home.js",
+					"buffer": 8,
+					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/SingleNoticia.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4184,
+						"buffer_size": 2389,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								559,
-								559
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1292,11 +1337,40 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
+					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Home.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4245,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1486,
+								1486
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
 					"file": "dploy.yaml",
 					"semi_transient": false,
 					"settings":
@@ -1322,11 +1396,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 11,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/BuscaLibrosMini.js",
 					"semi_transient": false,
 					"settings":
@@ -1351,11 +1425,11 @@
 						"translation.y": 2142.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/BuscaExpositoresMini.js",
 					"semi_transient": false,
 					"settings":
@@ -1380,11 +1454,11 @@
 						"translation.y": 2011.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/SliderNoticias.js",
 					"semi_transient": false,
 					"settings":
@@ -1410,11 +1484,11 @@
 						"translation.y": 357.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/HomeEventos.js",
 					"semi_transient": false,
 					"settings":
@@ -1439,11 +1513,11 @@
 						"translation.y": 2759.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 15,
 					"file": "/home/donhilo/Escritorio/migracion_chileactua",
 					"semi_transient": false,
 					"settings":
@@ -1468,11 +1542,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 16,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/MasNoticias.js",
 					"semi_transient": false,
 					"settings":
@@ -1497,11 +1571,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 17,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/FirstNoticia.js",
 					"semi_transient": false,
 					"settings":
@@ -1526,11 +1600,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 18,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/Programa.js",
 					"semi_transient": false,
 					"settings":
@@ -1555,11 +1629,11 @@
 						"translation.y": 1955.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 19,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/SingleNoticiaAlt.js",
 					"semi_transient": false,
 					"settings":
@@ -1571,8 +1645,8 @@
 						"selection":
 						[
 							[
-								1730,
-								1730
+								1714,
+								1714
 							]
 						],
 						"settings":
@@ -1581,14 +1655,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1173.0,
+						"translation.y": 1134.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 20,
 					"file": "/home/donhilo/Escritorio/trjmama.txt",
 					"semi_transient": false,
 					"settings":
@@ -1612,11 +1686,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 21,
 					"file": "/home/donhilo/Documentos/code/js/filsa2018-frontend/src/components/SocialHome.js",
 					"semi_transient": false,
 					"settings":
@@ -1642,11 +1716,11 @@
 						"translation.y": 221.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 22,
 					"file": "includes/class-filsa2018.php",
 					"semi_transient": false,
 					"settings":
@@ -1671,11 +1745,11 @@
 						"translation.y": 447.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 23,
 					"file": "admin/class-filsa2018-admin.php",
 					"semi_transient": false,
 					"settings":
@@ -1700,7 +1774,7 @@
 						"translation.y": 14935.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 21,
 					"type": "text"
 				}
 			]
@@ -1708,7 +1782,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 47.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -1745,7 +1819,7 @@
 	"project": "filsa2018.sublime-project",
 	"replace":
 	{
-		"height": 90.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1754,6 +1828,30 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"track",
+				"filsa2018-frontend/src/utils/trackPage.js"
+			],
+			[
+				"defa",
+				"filsa2018-frontend/src/components/Default.js"
+			],
+			[
+				"app",
+				"filsa2018-frontend/src/App.js"
+			],
+			[
+				"noti",
+				"filsa2018-frontend/src/components/Noticia.js"
+			],
+			[
+				"singleno",
+				"filsa2018-frontend/src/components/SingleNoticiaAlt.js"
+			],
+			[
+				"ingle",
+				"filsa2018-frontend/src/components/SingleNoticia.js"
+			],
 			[
 				"defau",
 				"filsa2018-frontend/src/components/Default.js"
@@ -1819,14 +1917,6 @@
 				"filsa2018/public/class-filsa2018-public.php"
 			],
 			[
-				"app",
-				"filsa2018-frontend/src/App.js"
-			],
-			[
-				"singleno",
-				"filsa2018-frontend/src/components/SingleNoticiaAlt.js"
-			],
-			[
 				"event",
 				"event-invitations/event-invitations.php"
 			],
@@ -1871,10 +1961,6 @@
 				"filsa2018-frontend/src/components/Programa.js"
 			],
 			[
-				"defa",
-				"filsa2018-frontend/src/components/Default.js"
-			],
-			[
 				"packa",
 				"filsa2018-frontend/package.json"
 			],
@@ -1909,10 +1995,6 @@
 			[
 				"libro.",
 				"filsa2018-frontend/src/components/Libro.js"
-			],
-			[
-				"track",
-				"filsa2018-frontend/src/utils/trackEvent.js"
 			],
 			[
 				"regis",
@@ -2257,14 +2339,6 @@
 			[
 				"menutop",
 				"filsa2018-frontend/src/components/MenuTop.js"
-			],
-			[
-				"socia",
-				"filsa2018-frontend/src/components/SocialButtons.js"
-			],
-			[
-				"prehe",
-				"filsa2018-frontend/src/components/PreHeader.js"
 			]
 		],
 		"width": 0.0
@@ -2277,6 +2351,10 @@
 		[
 			[
 				"",
+				"~/Documentos/code/js/trolley_nextjs/trolley.sublime-project"
+			],
+			[
+				"trol",
 				"~/Documentos/code/js/trolley_nextjs/trolley.sublime-project"
 			],
 			[
@@ -2302,10 +2380,6 @@
 			[
 				"cs",
 				"~/Documentos/code/php/csd/csd_web/public/wp-content/themes/universe_theme/csdweb.sublime-project"
-			],
-			[
-				"trol",
-				"~/Documentos/code/js/trolley_nextjs/trolley.sublime-project"
 			],
 			[
 				"conv",

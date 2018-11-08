@@ -195,7 +195,9 @@ class Filsa2018_Public {
 			'filsa2018_showaviso',
 			'filsa2018_colabpage',
 			'filsa2018_orgs',
-			'filsa2018_orgcamara'
+			'filsa2018_orgcamara',
+			'filsa2018_aviso',
+			'filsa2018_showaviso'
 		];
 
 		$params_content = array();
@@ -207,7 +209,7 @@ class Filsa2018_Public {
 					$params_content[$param] =wp_get_nav_menu_items( $fieldcontent );
 				} elseif($param == 'filsa2018_menu' || $param == 'filsa2018_menu_dos' || $param == 'filsa2018_fastlinks') {
 					$params_content[$param] = $this->buildTree(wp_get_nav_menu_items( $fieldcontent ), 0);
-				} elseif($param == 'filsa2018_intro') {
+				} elseif($param == 'filsa2018_intro' || $param == 'filsa2018_aviso') {
 					$params_content[$param]= apply_filters( 'the_content', $fieldcontent );
 				} else {
 					$params_content[$param] = $fieldcontent;
